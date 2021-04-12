@@ -45,6 +45,33 @@
                     </svg>
                 </div>
 
+                
+                @auth
+                    <p>Welcome, <strong>{{ Auth::user()->Username }}</strong></p>
+                    <a href="{{ route('auth.logout') }}">Logout</a>
+                @else
+                    You are not signed in.
+                @endif
+
+                <h1>Login</h1>
+                <form action="{{ route('auth.login') }}" method="post">
+                    @csrf
+                    <input type="text" name="Username" placeholder="Username"/>
+                    <input type="password" name="Password"/>
+                    <button type="submit">Login</button>
+                </form>
+
+                <h1>Register</h1>
+                <form action="{{ route('auth.register') }}" method="post">
+                    @csrf
+                    <input type="text" name="Username" placeholder="Username"/>
+                    <input type="text" name="Nama" placeholder="Nama"/>
+                    <input type="password" name="Password"/>
+                    <button type="submit">Register</button>
+                </form>
+
+                <p>{{ session('message') }}</p>
+
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
