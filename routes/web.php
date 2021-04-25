@@ -18,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+Route::name('master.')->group(function () {
+    Route::get('/barang', function () {
+        return view('master.barang');
+    })->name('barang');
+    
+    Route::get('/customer', function () {
+        return view('master.customer');
+    })->name('customer');
+});
+
 Route::name('auth.')->group(function () {
     Route::prefix('auth')->group(function () {
         Route::post('/login', [UserController::class, 'login'])->name('login');
