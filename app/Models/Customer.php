@@ -22,6 +22,7 @@ class Customer extends Model
      */
     protected $fillable = [
         'KodeCustomer',
+        'TypeCustomer',
         'NamaCustomer',
         'Keterangan',
         'Alamat1',
@@ -38,7 +39,7 @@ class Customer extends Model
         'Email',
         'Kontak',
         'NoKTP',
-        'NoNPWP',
+        'NPWP',
         'NamaPKP',
         'AlamatPKP',
         'LimitTotal',
