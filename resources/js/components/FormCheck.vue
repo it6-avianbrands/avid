@@ -19,7 +19,7 @@
         props: {
             id: String,
             label: String,
-            value: String,
+            value: Number,
             size: {
                 type: Number,
                 default: 12
