@@ -1860,12 +1860,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["id", "name", "label"],
+  props: {
+    id: String,
+    label: String,
+    value: String,
+    size: {
+      type: Number,
+      "default": 12
+    }
+  },
   data: function data() {
     return {
-      value: this.name
+      content: this.value,
+      columnClass: ["col-lg-" + this.size, "col-md-" + this.size].join(" ")
     };
+  },
+  methods: {
+    handleInput: function handleInput(e) {
+      this.$emit("input", e.target.value);
+    }
   }
 });
 
@@ -1906,17 +1921,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["id", "name", "label", "required"],
+  props: {
+    id: String,
+    label: String,
+    required: String,
+    value: String,
+    size: {
+      type: Number,
+      "default": 12
+    }
+  },
   components: {
     HelpModal: _HelpModal_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
-      value: this.name,
-      modalTarget: "#" + this.name + "Modal",
+      content: this.value,
+      modalTarget: "#" + this.id + "Modal",
       labelClass: "col-form-label",
-      isRequired: this.required ? "required" : ""
+      isRequired: this.required ? "required" : "",
+      columnClass: ["col-lg-" + this.size, "col-md-" + this.size].join(" ")
     };
+  },
+  methods: {
+    handleInput: function handleInput(e) {
+      this.$emit("input", e.target.value);
+    }
   }
 });
 
@@ -1945,13 +1975,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["id", "name", "type", "label", "required"],
+  props: {
+    id: String,
+    type: String,
+    label: String,
+    required: String,
+    value: String,
+    size: {
+      type: Number,
+      "default": 12
+    }
+  },
   data: function data() {
     return {
-      value: this.name,
+      content: this.value,
       labelClass: "col-form-label",
-      isRequired: this.required ? "required" : ""
+      isRequired: this.required ? "required" : "",
+      columnClass: ["col-lg-" + this.size, "col-md-" + this.size].join(" ")
     };
+  },
+  methods: {
+    handleInput: function handleInput(e) {
+      this.$emit("input", e.target.value);
+    }
   }
 });
 
@@ -1990,9 +2036,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id', 'title', 'body'],
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
   data: function data() {
     return {
       modalID: this.id + "Modal"
@@ -2045,64 +2088,217 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      formHTML: [[{
+        template: "regular",
+        type: "text",
+        name: "KodeBarang",
+        label: "Kode",
+        required: "required",
+        size: 6
+      }, {
+        template: "help",
+        type: "text",
+        name: "KodeProduk",
+        label: "Produk",
+        required: "required",
+        size: 6
+      }], [{
+        template: "regular",
+        type: "text",
+        name: "NamaBarang",
+        label: "Nama",
+        required: "required",
+        size: 12
+      }], [{
+        template: "regular",
+        type: "text",
+        name: "Keterangan",
+        label: "Keterangan",
+        required: "",
+        size: 12
+      }], [{
+        template: "help",
+        type: "text",
+        name: "KodeWarna",
+        label: "Warna",
+        required: "required",
+        size: 6
+      }, {
+        template: "regular",
+        type: "text",
+        name: "Barcode",
+        label: "Barcode",
+        required: "",
+        size: 6
+      }], [{
+        template: "help",
+        type: "text",
+        name: "KodeMerk",
+        label: "Merk",
+        required: "required",
+        size: 6
+      }, {
+        template: "help",
+        type: "text",
+        name: "KodeJenis",
+        label: "Jenis",
+        required: "required",
+        size: 6
+      }], [{
+        template: "help",
+        type: "text",
+        name: "KodeUkuran",
+        label: "Ukuran",
+        required: "required",
+        size: 6
+      }, {
+        template: "help",
+        type: "text",
+        name: "KodeModelSatuan",
+        label: "Kemasan",
+        required: "required",
+        size: 6
+      }], [{
+        template: "help",
+        type: "text",
+        name: "KodeSatuan",
+        label: "Satuan",
+        required: "required",
+        size: 3
+      }, {
+        template: "regular",
+        type: "number",
+        name: "QtySatuan",
+        label: "Quantity",
+        required: "",
+        size: 3
+      }, {
+        template: "regular",
+        type: "number",
+        name: "BeratSatuan",
+        label: "Berat",
+        required: "",
+        size: 3
+      }, {
+        template: "regular",
+        type: "number",
+        name: "QtyColi",
+        label: "Qty Coli",
+        required: "",
+        size: 3
+      }], [{
+        template: "help",
+        type: "text",
+        name: "SatuanColi",
+        label: "Satuan Coli",
+        required: "required",
+        size: 4
+      }, {
+        template: "help",
+        type: "text",
+        name: "DiscGroupBarang",
+        label: "Diskon Group",
+        required: "required",
+        size: 4
+      }, {
+        template: "help",
+        type: "text",
+        name: "ProdukGroup",
+        label: "Produk Group",
+        required: "required",
+        size: 4
+      }], [{
+        template: "regular",
+        type: "text",
+        name: "Group1",
+        label: "Group 1",
+        required: "required",
+        size: 3
+      }, {
+        template: "regular",
+        type: "text",
+        name: "Group2",
+        label: "Group 2",
+        required: "required",
+        size: 3
+      }, {
+        template: "regular",
+        type: "text",
+        name: "Group3",
+        label: "Group 3",
+        required: "required",
+        size: 3
+      }, {
+        template: "regular",
+        type: "text",
+        name: "Group4",
+        label: "Group 4",
+        required: "required",
+        size: 3
+      }, {
+        template: "regular",
+        type: "text",
+        name: "GroupA",
+        label: "Group A",
+        required: "required",
+        size: 2
+      }, {
+        template: "regular",
+        type: "text",
+        name: "GroupB",
+        label: "Group B",
+        required: "required",
+        size: 2
+      }, {
+        template: "regular",
+        type: "text",
+        name: "GroupC",
+        label: "Group C",
+        required: "required",
+        size: 2
+      }, {
+        template: "regular",
+        type: "text",
+        name: "GroupD",
+        label: "Group D",
+        required: "required",
+        size: 2
+      }, {
+        template: "regular",
+        type: "text",
+        name: "GroupDX",
+        label: "Group DX",
+        required: "required",
+        size: 4
+      }], [{
+        template: "check",
+        type: "",
+        name: "IsHadiah",
+        label: "Hadiah",
+        required: "",
+        size: 6
+      }, {
+        template: "check",
+        type: "",
+        name: "IsBarangCabang",
+        label: "Barang Cabang",
+        required: "",
+        size: 6
+      }]],
+      formData: {}
+    };
   },
-  methods: {}
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  },
+  methods: {
+    handleSubmit: function handleSubmit() {
+      console.log(this.$data.form);
+    }
+  }
 });
 
 /***/ }),
@@ -20063,47 +20259,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", [
-    _c("div", [
+  return _c("div", { class: _vm.columnClass }, [
+    _c("div", { staticClass: "input-group" }, [
       _c("label", { staticClass: "c-switch c-switch-pill c-switch-primary" }, [
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
           staticClass: "c-switch-input",
           attrs: { id: _vm.id, type: "checkbox" },
-          domProps: {
-            checked: Array.isArray(_vm.value)
-              ? _vm._i(_vm.value, null) > -1
-              : _vm.value
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.value,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && (_vm.value = $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    (_vm.value = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-                }
-              } else {
-                _vm.value = $$c
-              }
-            }
-          }
+          on: { input: _vm.handleInput }
         }),
         _vm._v(" "),
         _c("span", { staticClass: "c-switch-slider" })
+      ]),
+      _vm._v(" "),
+      _c("strong", [
+        _c("span", { domProps: { textContent: _vm._s(_vm.label) } })
       ])
     ])
   ])
@@ -20132,10 +20301,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "section",
+    "div",
+    { class: _vm.columnClass },
     [
       _c("help-modal", {
-        attrs: { id: _vm.name, title: _vm.label, content: _vm.label }
+        attrs: { id: _vm.id, title: _vm.label, content: _vm.label }
       }),
       _vm._v(" "),
       _c("label", {
@@ -20170,25 +20340,9 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
           staticClass: "form-control",
           attrs: { id: _vm.id, type: "text", autocomplete: _vm.id },
-          domProps: { value: _vm.value },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.value = $event.target.value
-            }
-          }
+          on: { input: _vm.handleInput }
         })
       ])
     ],
@@ -20218,90 +20372,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", [
+  return _c("div", { class: _vm.columnClass }, [
     _c("label", {
       class: [_vm.labelClass, _vm.isRequired],
       attrs: { for: _vm.id },
       domProps: { textContent: _vm._s(_vm.label) }
     }),
     _vm._v(" "),
-    _vm.type === "checkbox"
-      ? _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: _vm.id, type: "checkbox" },
-          domProps: {
-            checked: Array.isArray(_vm.value)
-              ? _vm._i(_vm.value, null) > -1
-              : _vm.value
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.value,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && (_vm.value = $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    (_vm.value = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-                }
-              } else {
-                _vm.value = $$c
-              }
-            }
-          }
-        })
-      : _vm.type === "radio"
-      ? _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: _vm.id, type: "radio" },
-          domProps: { checked: _vm._q(_vm.value, null) },
-          on: {
-            change: function($event) {
-              _vm.value = null
-            }
-          }
-        })
-      : _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: _vm.id, type: _vm.type },
-          domProps: { value: _vm.value },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.value = $event.target.value
-            }
-          }
-        })
+    _c("input", {
+      staticClass: "form-control",
+      attrs: { id: _vm.id, type: _vm.type },
+      on: { input: _vm.handleInput }
+    })
   ])
 }
 var staticRenderFns = []
@@ -20445,326 +20527,70 @@ var render = function() {
             _c(
               "div",
               { staticClass: "card-body" },
-              [
-                _c("form-check", {
-                  attrs: { id: "is_hadiah", name: "IsHadiah" }
-                }),
-                _vm._v(" "),
-                _c("form-check", {
-                  attrs: { id: "is_barang_cabang", name: "IsBarangCabang" }
-                }),
-                _vm._v(" "),
-                _c(
+              _vm._l(_vm.formHTML, function(formRow) {
+                return _c(
                   "div",
                   { staticClass: "form-group row" },
                   [
-                    _c("form-regular", {
-                      attrs: {
-                        id: "kode_barang",
-                        type: "text",
-                        name: "KodeBarang",
-                        label: "Kode",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_produk",
-                        name: "KodeProduk",
-                        label: "Produk",
-                        required: "required"
-                      }
+                    _vm._l(formRow, function(form) {
+                      return [
+                        form.template == "regular"
+                          ? [
+                              _c("form-regular", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  type: form.type,
+                                  label: form.label,
+                                  required: form.required
+                                }
+                              })
+                            ]
+                          : form.template == "help"
+                          ? [
+                              _c("form-help", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  required: form.required
+                                }
+                              })
+                            ]
+                          : [
+                              _c("form-check", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label
+                                }
+                              })
+                            ]
+                      ]
                     })
                   ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-regular", {
-                      attrs: {
-                        id: "nama_barang",
-                        type: "text",
-                        name: "NamaBarang",
-                        label: "Nama"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-regular", {
-                      attrs: {
-                        id: "keterangan",
-                        type: "text",
-                        name: "Keterangan",
-                        label: "Keterangan"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_warna",
-                        name: "KodeWarna",
-                        label: "Warna",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "barcode",
-                        type: "text",
-                        name: "Barcode",
-                        label: "Barcode"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_merk",
-                        name: "KodeMerk",
-                        label: "Merk",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_jenis",
-                        name: "KodeJenis",
-                        label: "Jenis",
-                        required: "required"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_ukuran",
-                        name: "KodeUkuran",
-                        label: "Ukuran",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_model_satuan",
-                        name: "KodeModelSatuan",
-                        label: "Kemasan",
-                        required: "required"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-help", {
-                      attrs: {
-                        id: "kode_satuan",
-                        name: "KodeSatuan",
-                        label: "Satuan",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "qty_satuan",
-                        type: "number",
-                        name: "QtySatuan",
-                        label: "Quantity"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "berat_satuan",
-                        type: "number",
-                        name: "BeratSatuan",
-                        label: "Berat"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "qty_coli",
-                        type: "number",
-                        name: "QtyColi",
-                        label: "Qty Coli"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-help", {
-                      attrs: {
-                        id: "satuan_coli",
-                        name: "SatuanColi",
-                        label: "Satuan Coli",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-help", {
-                      attrs: {
-                        id: "disc_group_barang",
-                        name: "DiscGroupBarang",
-                        label: "Diskon Group",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-help", {
-                      attrs: {
-                        id: "produk_group",
-                        name: "ProdukGroup",
-                        label: "Produk Group",
-                        required: "required"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group row" },
-                  [
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_1",
-                        type: "text",
-                        name: "Group1",
-                        label: "Group 1",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_2",
-                        type: "text",
-                        name: "Group2",
-                        label: "Group 2",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_3",
-                        type: "text",
-                        name: "Group3",
-                        label: "Group 3",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_4",
-                        type: "text",
-                        name: "Group4",
-                        label: "Group 4",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_A",
-                        type: "text",
-                        name: "GroupA",
-                        label: "Group A",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_B",
-                        type: "text",
-                        name: "GroupB",
-                        label: "Group B",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_C",
-                        type: "text",
-                        name: "GroupC",
-                        label: "Group C",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_D",
-                        type: "text",
-                        name: "GroupD",
-                        label: "Group D",
-                        required: "required"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("form-regular", {
-                      attrs: {
-                        id: "group_DX",
-                        type: "text",
-                        name: "GroupDX",
-                        label: "Group DX",
-                        required: "required"
-                      }
-                    })
-                  ],
-                  1
+                  2
                 )
-              ],
-              1
+              }),
+              0
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "card-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "submit" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.handleSubmit($event)
+                    }
+                  }
+                },
+                [_vm._v(" Submit")]
+              )
+            ])
           ]
         )
       ])
@@ -20778,24 +20604,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h1", [_vm._v("Master Barang")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-sm btn-primary", attrs: { type: "submit" } },
-        [_vm._v(" Submit")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-sm btn-danger", attrs: { type: "reset" } },
-        [_vm._v(" Reset")]
-      )
     ])
   }
 ]

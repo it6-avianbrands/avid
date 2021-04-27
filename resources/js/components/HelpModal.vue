@@ -21,9 +21,6 @@
 <script>
     export default {
         props: ['id', 'title', 'body'],
-        mounted() {
-            console.log('Component mounted.')
-        },
         data() {
             return {
                 modalID: this.id + "Modal"

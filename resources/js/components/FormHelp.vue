@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <help-modal :id="name" :title="label" :content="label"></help-modal>
+    <div :class="columnClass">
+        <help-modal :id="id" :title="label" :content="label"></help-modal>
         <label v-text="label" :class="[labelClass, isRequired]" :for="id"></label>
         <div class="input-group">
             <span class="input-group-prepend">
@@ -10,9 +10,9 @@
                     </svg>
                 </button>
             </span>
-            <input class="form-control" :id="id" type="text" v-model="value" :autocomplete="id">
+            <input class="form-control" :id="id" type="text" :autocomplete="id" @input="handleInput">
         </div>
-    </section>
+    </div>
 </template>
 
 <style>
@@ -23,18 +23,33 @@
     import HelpModal from './HelpModal.vue'
 
     export default {
-        props: ["id", "name", "label", "required"],
+        props: {
+            id: String,
+            label: String,
+            required: String,
+            value: String,
+            size: {
+                type: Number,
+                default: 12
+            }
+        },
         components: {
             HelpModal
         },
         data: function() {
             return {
-                value: this.name,
-                modalTarget: "#" + this.name + "Modal",
+                content: this.value,
+                modalTarget: "#" + this.id + "Modal",
                 labelClass: "col-form-label",
-                isRequired: this.required ? "required" : ""
+                isRequired: this.required ? "required" : "",
+                columnClass: ["col-lg-" + this.size, "col-md-" + this.size].join(" ")
             }
 
+        },
+        methods: {
+            handleInput(e) {
+                this.$emit("input", e.target.value)
+            }
         }
     }
 </script>

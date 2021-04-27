@@ -1,81 +1,28 @@
 <template>
+    <!--[TBA] Table List Master-->
+    <!--Form CRUD (view, add, edit, delete)-->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="card-header"><h1>Master Barang</h1></div>
                     <div class="card-body">
-                        <!--Modal Help-->
-                        <!--<HelpModal></HelpModal>-->
-                        <!--Hadiah-->
-                        <form-check id="is_hadiah" name="IsHadiah"></form-check>
-                        <!--Barang Cabang-->
-                        <form-check id="is_barang_cabang" name="IsBarangCabang"></form-check>
-                        <div class="form-group row">
-                            <!--Kode-->
-                            <form-regular id="kode_barang" type="text" name="KodeBarang" label="Kode" required="required"></form-regular>
-                            <!--Produk-->
-                            <form-help id="kode_produk" name="KodeProduk" label="Produk" required="required"></form-help>
-                        </div>
-                        <div class="form-group row">
-                            <!--Nama-->
-                            <form-regular id="nama_barang" type="text" name="NamaBarang" label="Nama"></form-regular>
-                        </div>
-                        <div class="form-group row">
-                            <!--Keterangan-->
-                            <form-regular id="keterangan" type="text" name="Keterangan" label="Keterangan"></form-regular>
-                        </div>
-                        <div class="form-group row">                   
-                            <!--Warna-->
-                            <form-help id="kode_warna" name="KodeWarna" label="Warna" required="required"></form-help>
-                            <!--Barcode-->
-                            <form-regular id="barcode" type="text" name="Barcode" label="Barcode"></form-regular>
-                        </div>
-                        <div class="form-group row"> 
-                            <!--Merk-->
-                            <form-help id="kode_merk" name="KodeMerk" label="Merk" required="required"></form-help>
-                            <!--Jenis-->
-                            <form-help id="kode_jenis" name="KodeJenis" label="Jenis" required="required"></form-help>
-                        </div>
-                        <div class="form-group row">
-                            <!--Ukuran-->
-                            <form-help id="kode_ukuran" name="KodeUkuran" label="Ukuran" required="required"></form-help>
-                            <!--Model Satuan-->
-                            <form-help id="kode_model_satuan" name="KodeModelSatuan" label="Kemasan" required="required"></form-help>
-                        </div>
-                        <div class="form-group row">                   
-                            <!--Kode Satuan-->
-                            <form-help id="kode_satuan" name="KodeSatuan" label="Satuan" required="required"></form-help>
-                            <!--Qty Satuan-->
-                            <form-regular id="qty_satuan" type="number" name="QtySatuan" label="Quantity"></form-regular>
-                            <!--Berat Satuan-->
-                            <form-regular id="berat_satuan" type="number" name="BeratSatuan" label="Berat"></form-regular>
-                            <!--Qty Coli-->
-                            <form-regular id="qty_coli" type="number" name="QtyColi" label="Qty Coli"></form-regular>
-                        </div>
-                        <div class="form-group row">                   
-                            <!--Satuan Coli-->
-                            <form-help id="satuan_coli" name="SatuanColi" label="Satuan Coli" required="required"></form-help>
-                            <!--Disc Group Barang-->
-                            <form-help id="disc_group_barang" name="DiscGroupBarang" label="Diskon Group" required="required"></form-help>
-                            <!--Produk Group-->
-                            <form-help id="produk_group" name="ProdukGroup" label="Produk Group" required="required"></form-help>
-                        </div>
-                        <div class="form-group row">
-                            <form-regular id="group_1" type="text" name="Group1" label="Group 1" required="required"></form-regular>
-                            <form-regular id="group_2" type="text" name="Group2" label="Group 2" required="required"></form-regular>
-                            <form-regular id="group_3" type="text" name="Group3" label="Group 3" required="required"></form-regular>
-                            <form-regular id="group_4" type="text" name="Group4" label="Group 4" required="required"></form-regular>
-                            <form-regular id="group_A" type="text" name="GroupA" label="Group A" required="required"></form-regular>
-                            <form-regular id="group_B" type="text" name="GroupB" label="Group B" required="required"></form-regular>
-                            <form-regular id="group_C" type="text" name="GroupC" label="Group C" required="required"></form-regular>
-                            <form-regular id="group_D" type="text" name="GroupD" label="Group D" required="required"></form-regular>
-                            <form-regular id="group_DX" type="text" name="GroupDX" label="Group DX" required="required"></form-regular>
+                        <div v-for="formRow in formHTML" class="form-group row">
+                            <template v-for="form in formRow">
+                                <template v-if="form.template == 'regular'">
+                                    <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required"></form-regular>
+                                </template>
+                                <template v-else-if="form.template == 'help'">
+                                    <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required"></form-help>
+                                </template>
+                                <template v-else>
+                                    <form-check :size="form.size" :id="form.name" :label="form.label"></form-check>
+                                </template>
+                            </template>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
-                        <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
+                        <button class="btn btn-primary" type="submit" @click.prevent="handleSubmit"> Submit</button>
                     </div>
                 </form>
             </div>
@@ -87,11 +34,264 @@
     export default {
         data() {
             return {
-                
+                formHTML: [
+                    [
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "KodeBarang",
+                            label: "Kode",
+                            required: "required",
+                            size: 6
+                        },
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeProduk",
+                            label: "Produk",
+                            required: "required",
+                            size: 6
+                        }
+                    ],
+                    [
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "NamaBarang",
+                            label: "Nama",
+                            required: "required",
+                            size: 12
+                        }
+                    ],
+                    [
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "Keterangan",
+                            label: "Keterangan",
+                            required: "",
+                            size: 12
+                        }
+                    ],
+                    [
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeWarna",
+                            label: "Warna",
+                            required: "required",
+                            size: 6
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "Barcode",
+                            label: "Barcode",
+                            required: "",
+                            size: 6
+                        }
+                    ],
+                    [
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeMerk",
+                            label: "Merk",
+                            required: "required",
+                            size: 6
+                        },
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeJenis",
+                            label: "Jenis",
+                            required: "required",
+                            size: 6
+                        }
+                    ],
+                    [
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeUkuran",
+                            label: "Ukuran",
+                            required: "required",
+                            size: 6
+                        },
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeModelSatuan",
+                            label: "Kemasan",
+                            required: "required",
+                            size: 6
+                        }
+                    ],
+                    [
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "KodeSatuan",
+                            label: "Satuan",
+                            required: "required",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "number",
+                            name: "QtySatuan",
+                            label: "Quantity",
+                            required: "",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "number",
+                            name: "BeratSatuan",
+                            label: "Berat",
+                            required: "",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "number",
+                            name: "QtyColi",
+                            label: "Qty Coli",
+                            required: "",
+                            size: 3
+                        }
+                    ],
+                    [
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "SatuanColi",
+                            label: "Satuan Coli",
+                            required: "required",
+                            size: 4
+                        },
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "DiscGroupBarang",
+                            label: "Diskon Group",
+                            required: "required",
+                            size: 4
+                        },
+                        {
+                            template: "help",
+                            type: "text",
+                            name: "ProdukGroup",
+                            label: "Produk Group",
+                            required: "required",
+                            size: 4
+                        }
+                    ],
+                    [
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "Group1",
+                            label: "Group 1",
+                            required: "required",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "Group2",
+                            label: "Group 2",
+                            required: "required",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "Group3",
+                            label: "Group 3",
+                            required: "required",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "Group4",
+                            label: "Group 4",
+                            required: "required",
+                            size: 3
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "GroupA",
+                            label: "Group A",
+                            required: "required",
+                            size: 2
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "GroupB",
+                            label: "Group B",
+                            required: "required",
+                            size: 2
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "GroupC",
+                            label: "Group C",
+                            required: "required",
+                            size: 2
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "GroupD",
+                            label: "Group D",
+                            required: "required",
+                            size: 2
+                        },
+                        {
+                            template: "regular",
+                            type: "text",
+                            name: "GroupDX",
+                            label: "Group DX",
+                            required: "required",
+                            size: 4
+                        }
+                    ],
+                    [
+                        {
+                            template: "check",
+                            type: "",
+                            name: "IsHadiah",
+                            label: "Hadiah",
+                            required: "",
+                            size: 6
+                        },
+                        {
+                            template: "check",
+                            type: "",
+                            name: "IsBarangCabang",
+                            label: "Barang Cabang",
+                            required: "",
+                            size: 6
+                        }
+                    ]
+                ],
+                formData: {
+                    
+                }
             }
         },
+        mounted() {
+            console.log('Component mounted.')
+        },
         methods: {
-            
+            handleSubmit() {
+                console.log(this.$data.form)
+            }
         }
     }
 </script>
