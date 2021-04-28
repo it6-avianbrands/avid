@@ -2,7 +2,7 @@
     <div :class="columnClass">
         <div class="input-group">
             <label class="c-switch c-switch-pill c-switch-primary">
-                <input class="c-switch-input" :id="id" type="checkbox" @input="handleInput">
+                <input class="c-switch-input" :id="id" type="checkbox" @input="handleInput" :checked="value">
                 <span class="c-switch-slider"></span>
             </label>
             <strong><span v-text="label"></span></strong>
@@ -19,7 +19,10 @@
         props: {
             id: String,
             label: String,
-            value: Number,
+            value: {
+                type: Boolean,
+                default: false
+            },
             size: {
                 type: Number,
                 default: 12
@@ -33,7 +36,7 @@
         },
         methods: {
             handleInput(e) {
-                this.$emit("input", e.target.value)
+                this.$emit("input", e.target.checked)
             }
         }
     }

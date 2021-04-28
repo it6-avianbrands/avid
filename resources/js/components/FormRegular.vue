@@ -1,7 +1,7 @@
 <template>
     <div :class="columnClass">
         <label v-text="label" :class="[labelClass, isRequired]" :for="id"></label>
-        <input class="form-control" :id="id" :type="type" @input="handleInput"> 
+        <input class="form-control" :id="id" :type="type" :value="value" @input="handleInput"> 
     </div>
 </template>
 

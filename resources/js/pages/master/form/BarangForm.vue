@@ -1,18 +1,18 @@
 <template>
     <div class="card">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form id="BarangForm" action="" method="post" enctype="multipart/form-data">
             <div class="card-header"><h1>Add/Edit Barang</h1></div>
             <div class="card-body">
                 <div v-for="formRow in formHTML" class="form-group row">
                     <template v-for="form in formRow">
                         <template v-if="form.template == 'regular'">
-                            <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required"></form-regular>
+                            <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-regular>
                         </template>
                         <template v-else-if="form.template == 'help'">
-                            <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required"></form-help>
+                            <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-help>
                         </template>
                         <template v-else>
-                            <form-check :size="form.size" :id="form.name" :label="form.label"></form-check>
+                            <form-check :size="form.size" :id="form.name" :label="form.label" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-check>
                         </template>
                     </template>
                 </div>
@@ -301,8 +301,8 @@
                     GroupC: "testGroupC",
                     GroupD: "testGroupD",
                     GroupDX: "testGroupDX",
-                    IsHadiah: 1,
-                    IsBarangCabang: 1
+                    IsHadiah: true,
+                    IsBarangCabang: false
                 }
             }
         },
@@ -312,6 +312,9 @@
         methods: {
             handleSubmit() {
                 console.log(this.$data.formData)
+            },
+            setValue(key, e) {
+                this.formData[key] = e
             }
         }
     }

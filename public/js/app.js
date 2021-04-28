@@ -1865,7 +1865,10 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     id: String,
     label: String,
-    value: Number,
+    value: {
+      type: Boolean,
+      "default": false
+    },
     size: {
       type: Number,
       "default": 12
@@ -1879,7 +1882,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleInput: function handleInput(e) {
-      this.$emit("input", e.target.value);
+      this.$emit("input", e.target.checked);
     }
   }
 });
@@ -2338,8 +2341,8 @@ __webpack_require__.r(__webpack_exports__);
         GroupC: "testGroupC",
         GroupD: "testGroupD",
         GroupDX: "testGroupDX",
-        IsHadiah: 1,
-        IsBarangCabang: 1
+        IsHadiah: true,
+        IsBarangCabang: false
       }
     };
   },
@@ -2349,6 +2352,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleSubmit: function handleSubmit() {
       console.log(this.$data.formData);
+    },
+    setValue: function setValue(key, e) {
+      this.formData[key] = e;
     }
   }
 });
@@ -20390,6 +20396,7 @@ var render = function() {
         _c("input", {
           staticClass: "c-switch-input",
           attrs: { id: _vm.id, type: "checkbox" },
+          domProps: { checked: _vm.value },
           on: { input: _vm.handleInput }
         }),
         _vm._v(" "),
@@ -20467,6 +20474,7 @@ var render = function() {
         _c("input", {
           staticClass: "form-control",
           attrs: { id: _vm.id, type: "text", autocomplete: _vm.id },
+          domProps: { value: _vm.value },
           on: { input: _vm.handleInput }
         })
       ])
@@ -20507,6 +20515,7 @@ var render = function() {
     _c("input", {
       staticClass: "form-control",
       attrs: { id: _vm.id, type: _vm.type },
+      domProps: { value: _vm.value },
       on: { input: _vm.handleInput }
     })
   ])
@@ -20664,7 +20673,14 @@ var render = function() {
   return _c("div", { staticClass: "card" }, [
     _c(
       "form",
-      { attrs: { action: "", method: "post", enctype: "multipart/form-data" } },
+      {
+        attrs: {
+          id: "BarangForm",
+          action: "",
+          method: "post",
+          enctype: "multipart/form-data"
+        }
+      },
       [
         _vm._m(0),
         _vm._v(" "),
@@ -20686,7 +20702,13 @@ var render = function() {
                               id: form.name,
                               type: form.type,
                               label: form.label,
-                              required: form.required
+                              required: form.required,
+                              value: _vm.formData[form.name]
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.setValue(form.name, $event)
+                              }
                             }
                           })
                         ]
@@ -20697,7 +20719,13 @@ var render = function() {
                               size: form.size,
                               id: form.name,
                               label: form.label,
-                              required: form.required
+                              required: form.required,
+                              value: _vm.formData[form.name]
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.setValue(form.name, $event)
+                              }
                             }
                           })
                         ]
@@ -20706,7 +20734,13 @@ var render = function() {
                             attrs: {
                               size: form.size,
                               id: form.name,
-                              label: form.label
+                              label: form.label,
+                              value: _vm.formData[form.name]
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.setValue(form.name, $event)
+                              }
                             }
                           })
                         ]

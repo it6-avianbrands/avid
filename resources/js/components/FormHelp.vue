@@ -10,7 +10,7 @@
                     </svg>
                 </button>
             </span>
-            <input class="form-control" :id="id" type="text" :autocomplete="id" @input="handleInput">
+            <input class="form-control" :id="id" type="text" :autocomplete="id" :value="value" @input="handleInput">
         </div>
     </div>
 </template>
