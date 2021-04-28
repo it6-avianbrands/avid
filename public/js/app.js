@@ -2114,6 +2114,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2352,6 +2354,17 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleSubmit: function handleSubmit() {
       console.log(this.$data.formData);
+      axios.post('/api/barang/add', this.$data.formData).then(function (response) {
+        console.log(response);
+
+        if (response.data.status) {
+          alert("Success");
+          console.log(response.data.message);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.message);
+        console.log(error.response.data.message);
+      });
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
@@ -20644,7 +20657,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-12" }, [_c("barang-form")], 1)
+    _c(
+      "div",
+      { staticClass: "col-12" },
+      [_c("barang-form", [_vm._t("default")], 2)],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -20683,6 +20701,8 @@ var render = function() {
       },
       [
         _vm._m(0),
+        _vm._v(" "),
+        _vm._t("default"),
         _vm._v(" "),
         _c(
           "div",
@@ -20769,7 +20789,8 @@ var render = function() {
             [_vm._v(" Submit")]
           )
         ])
-      ]
+      ],
+      2
     )
   ])
 }

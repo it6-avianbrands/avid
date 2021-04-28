@@ -56,7 +56,7 @@
           <main class="c-main">
             <div class="container-fluid">
               <div class="fade-in">
-                @yield('content')
+                <barang-page>@csrf</barang-page>
               </div>
             </div>
           </main>

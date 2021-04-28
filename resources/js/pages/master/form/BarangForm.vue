@@ -2,6 +2,8 @@
     <div class="card">
         <form id="BarangForm" action="" method="post" enctype="multipart/form-data">
             <div class="card-header"><h1>Add/Edit Barang</h1></div>
+            <!--CSRF Token-->
+            <slot></slot>
             <div class="card-body">
                 <div v-for="formRow in formHTML" class="form-group row">
                     <template v-for="form in formRow">
@@ -312,6 +314,19 @@
         methods: {
             handleSubmit() {
                 console.log(this.$data.formData)
+                axios.post('/api/barang/add', this.$data.formData)
+                .then((response) => {
+                    console.log(response)
+                    if (response.data.status)
+                    {
+                        alert("Success")
+                        console.log(response.data.message)
+                    }
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                    console.log(error.response.data.message)
+                })
             },
             setValue(key, e) {
                 this.formData[key] = e

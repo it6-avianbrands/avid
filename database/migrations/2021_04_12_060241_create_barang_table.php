@@ -18,12 +18,12 @@ class CreateBarangTable extends Migration
             $table->string('NamaBarang');
             $table->string('Keterangan')->nullable();
             $table->string('Barcode')->nullable();
-            $table->string('Warna')->nullable();
-            $table->string('Produk');
-            $table->string('Merk');
-            $table->string('Jenis');
-            $table->string('Ukuran');
-            $table->string('ModelSatuan');
+            $table->string('KodeWarna');
+            $table->string('KodeProduk');
+            $table->string('KodeMerk');
+            $table->string('KodeJenis');
+            $table->string('KodeUkuran');
+            $table->string('KodeModelSatuan');
             $table->string('SatuanColi');
             $table->string('DiscGroupBarang');
             $table->string('ProdukGroup');

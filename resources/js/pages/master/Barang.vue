@@ -3,7 +3,7 @@
     <!--Form CRUD (view, add, edit, delete)-->
     <div class="row">
         <div class="col-12">
-            <barang-form></barang-form>
+            <barang-form><slot></slot></barang-form>
         </div>
     </div>
 </template>
