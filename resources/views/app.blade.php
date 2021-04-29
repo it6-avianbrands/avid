@@ -56,8 +56,7 @@
           <main class="c-main">
             <div class="container-fluid">
               <div class="fade-in">
-                <!--<barang-page>@csrf</barang-page>-->
-                <barang-list></barang-list>
+                <router-view>@csrf</router-view>
               </div>
             </div>
           </main>

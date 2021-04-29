@@ -44,11 +44,8 @@ Vue.component('form-regular', require('./components/FormRegular.vue').default);
 Vue.component('form-help', require('./components/FormHelp.vue').default);
 Vue.component('form-check', require('./components/FormCheck.vue').default);
 
-Vue.component('barang-page', require('./pages/master/Barang.vue').default);
 Vue.component('barang-list', require('./pages/master/list/BarangList.vue').default);
 Vue.component('barang-form', require('./pages/master/form/BarangForm.vue').default);
-
-Vue.component('customer-page', require('./pages/master/Customer.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

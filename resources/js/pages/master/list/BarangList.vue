@@ -1,10 +1,14 @@
 <template>
-    <div class="card">
-        <div class="card-header"><h1>Master Barang</h1></div>
-        <div class="card-body">
-            <datatable :columns="header" :data="detail"></datatable>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header"><h1>Master Barang</h1></div>
+                <div class="card-body">
+                    <datatable :columns="header" :data="detail"></datatable>
+                </div>
+                <div class="card-footer"></div>
+            </div>
         </div>
-        <div class="card-footer"></div>
     </div>
 </template>
 
@@ -60,38 +64,14 @@
                     {
                         label: "Barang Cabang",
                         field: "IsBarangCabang"
-                    }
-                ],
-                detail: [
-                    {
-                        KodeBarang: "KodeBarang_1",
-                        KodeProduk: "KodeProduk_1",
-                        NamaBarang: "NamaBarang_1",
-                        KodeMerk: "KodeMerk_1",
-                        KodeJenis: "KodeJenis_1",
-                        KodeUkuran: "KodeUkuran_1",
-                        KodeModelSatuan: "KodeModelSatuan_1",
-                        SatuanColi: "SatuanColi_1",
-                        DiscGroupBarang: "DiscGroupBarang_1",
-                        ProdukGroup: "ProdukGroup_1",
-                        IsHadiah: true,
-                        IsBarangCabang: false
                     },
-                    {
-                        KodeBarang: "KodeBarang_2",
-                        KodeProduk: "KodeProduk_2",
-                        NamaBarang: "NamaBarang_2",
-                        KodeMerk: "KodeMerk_2",
-                        KodeJenis: "KodeJenis_2",
-                        KodeUkuran: "KodeUkuran_2",
-                        KodeModelSatuan: "KodeModelSatuan_2",
-                        SatuanColi: "SatuanColi_2",
-                        DiscGroupBarang: "DiscGroupBarang_2",
-                        ProdukGroup: "ProdukGroup_2",
-                        IsHadiah: true,
-                        IsBarangCabang: false
-                    }
-                ]
+                    /*{
+                        label: "Action",
+                        representedAs: ({KodeBarang}) => "<button class='btn btn-primary' id='" + KodeBarang + "' @click='openFormEdit'>Edit</button>",
+                        interpolate: true
+                    }*/
+                ],
+                detail: []
             }
         },
         mounted() {
@@ -104,6 +84,9 @@
                     this.detail = response.data
                 })
             },
+            openFormEdit(e) {
+                alert(e)
+            }
         }
     }
 </script>

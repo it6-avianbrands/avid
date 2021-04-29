@@ -1,33 +1,38 @@
 <template>
-    <div class="card">
-        <form id="BarangForm" action="" method="post" enctype="multipart/form-data">
-            <div class="card-header"><h1>Add/Edit Barang</h1></div>
-            <!--CSRF Token-->
-            <slot></slot>
-            <div class="card-body">
-                <div v-for="formRow in formHTML" class="form-group row">
-                    <template v-for="form in formRow">
-                        <template v-if="form.template == 'regular'">
-                            <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-regular>
-                        </template>
-                        <template v-else-if="form.template == 'help'">
-                            <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-help>
-                        </template>
-                        <template v-else>
-                            <form-check :size="form.size" :id="form.name" :label="form.label" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-check>
-                        </template>
-                    </template>
-                </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <form id="BarangForm" action="" method="post" enctype="multipart/form-data">
+                    <div class="card-header"><h1>Add/Edit Barang</h1></div>
+                    <!--CSRF Token-->
+                    <slot></slot>
+                    <div class="card-body">
+                        <div v-for="formRow in formHTML" class="form-group row">
+                            <template v-for="form in formRow">
+                                <template v-if="form.template == 'regular'">
+                                    <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-regular>
+                                </template>
+                                <template v-else-if="form.template == 'help'">
+                                    <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-help>
+                                </template>
+                                <template v-else>
+                                    <form-check :size="form.size" :id="form.name" :label="form.label" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-check>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit" @click.prevent="handleSubmit"> Submit</button>
+                    </div>
+                </form>
             </div>
-            <div class="card-footer">
-                <button class="btn btn-primary" type="submit" @click.prevent="handleSubmit"> Submit</button>
-            </div>
-        </form>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
+        props: ['id'],
         data() {
             return {
                 formHTML: [

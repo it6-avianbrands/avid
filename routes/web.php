@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('app');
-})->name('index');
+})->where('any', '.*');
 
 Route::name('auth.')->group(function () {
     Route::prefix('auth')->group(function () {

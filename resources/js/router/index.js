@@ -4,19 +4,20 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Barang from '../pages/master/Barang.vue'
-import Customer from '../pages/master/Customer.vue'
+import BarangList from '../pages/master/list/BarangList.vue'
+import BarangForm from '../pages/master/form/BarangForm.vue'
 
 const routes = [
     {
-        name: 'Barang',
+        name: 'BarangList',
         path: '/barang',
-        component: Barang
+        component: BarangList
     },
     {
-        name: 'Customer',
-        path: '/customer',
-        component: Customer
+        name: 'BarangForm',
+        path: '/barang/:id?',
+        component: BarangForm,
+        props: true
     }
     /*{
         path: '*',
