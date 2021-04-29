@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/barang', [BarangController::class, 'listBarang']);
 Route::post('/barang/add', [BarangController::class, 'addBarang']);

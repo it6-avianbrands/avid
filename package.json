@@ -22,6 +22,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "vue-router": "^3.5.1"
+        "vue-router": "^3.5.1",
+        "vuejs-datatable": "^2.0.0-alpha.7"
     }
 }

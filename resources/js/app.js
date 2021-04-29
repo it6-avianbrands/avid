@@ -11,6 +11,24 @@ import Vue from 'vue'
 
 import router from './router'
 
+import { VuejsDatatableFactory } from 'vuejs-datatable'
+
+Vue.use(VuejsDatatableFactory)
+
+VuejsDatatableFactory
+    .registerTableType('datatable', tableType => tableType.mergeSettings({
+            table: {
+                class: 'table table-responsive-sm table-bordered table-striped table-sm',
+                sorting: {
+                    sortAsc:  '<i class="c-icon c-icon-2xl mt-5 mb-2 cil-sort-ascending" title="Sort ascending"></i>',
+                    sortDesc: '<i class="c-icon c-icon-2xl mt-5 mb-2 cil-sort-descending" title="Sort descending"></i>',
+                    sortNone: '<i class="c-icon c-icon-2xl mt-5 mb-2 cil-sort-ascending" title="Sort"></i>',
+                },
+            }
+        })
+    );
+//import datatables from './datatables'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -27,6 +45,7 @@ Vue.component('form-help', require('./components/FormHelp.vue').default);
 Vue.component('form-check', require('./components/FormCheck.vue').default);
 
 Vue.component('barang-page', require('./pages/master/Barang.vue').default);
+Vue.component('barang-list', require('./pages/master/list/BarangList.vue').default);
 Vue.component('barang-form', require('./pages/master/form/BarangForm.vue').default);
 
 Vue.component('customer-page', require('./pages/master/Customer.vue').default);
