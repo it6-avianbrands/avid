@@ -68,4 +68,46 @@ class BarangController extends Controller
             "data" => $barang
         ]);
     }
+
+    public function editBarang($id, Request $request)
+    {
+        /*$validation = Validator::make($request->all(), [
+            "KodeProduk" => "required|exists:Produk",
+            "NamaBarang" => "required",
+            "KodeWarna" => "required|exists:Warna",
+            "KodeMerk" => "required|exists:Merk",
+            "KodeJenis" => "required|exists:Jenis",
+            "KodeUkuran" => "required|exists:Ukuran",
+            "KodeModelSatuan" => "required|exists:ModelSatuan",
+            "KodeSatuan" => "required|exists:Satuan",
+            "SatuanColi" => "required|exists:Satuan,KodeSatuan",
+            "DiscGroupBarang" => "required|exists:DiscGroup,KodeDiscGroup",
+            "ProdukGroup" => "required|exists:ProdukGroup,KodeProdukGroup",
+            "Group1" => "required",
+            "Group2" => "required",
+            "Group3" => "required",
+            "Group4" => "required",
+            "GroupA" => "required",
+            "GroupB" => "required",
+            "GroupC" => "required",
+            "GroupD" => "required",
+            "GroupDX" => "required"
+        ]);
+
+        if ($validation->fails()) 
+        {
+            return response()->json([
+                "status" => false,
+                "message" => $validation->errors()
+            ], 422);
+        }*/
+
+        Barang::find($id)->update($request->except(["KodeBarang", "KodeSatuan", "QtySatuan", "BeratSatuan", "QtyColi"]));
+
+        return response()->json([
+            "status" => true,
+            "message" => "Edit Barang success.",
+            "data" => ""
+        ]);
+    }
 }

@@ -20,9 +20,9 @@ VuejsDatatableFactory
             table: {
                 class: 'table table-responsive-sm table-bordered table-striped table-sm',
                 sorting: {
-                    sortAsc:  '<i class="c-icon c-icon-2xl mt-5 mb-2 cil-sort-ascending" title="Sort ascending"></i>',
-                    sortDesc: '<i class="c-icon c-icon-2xl mt-5 mb-2 cil-sort-descending" title="Sort descending"></i>',
-                    sortNone: '<i class="c-icon c-icon-2xl mt-5 mb-2 cil-sort-ascending" title="Sort"></i>',
+                    sortAsc:  '<svg v-if="row.IsHadiah" class="c-icon"><use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-sort-ascending"></use></svg>',
+                    sortDesc: '<svg v-if="row.IsHadiah" class="c-icon"><use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-sort-descending"></use></svg>',
+                    sortNone: '<svg v-if="row.IsHadiah" class="c-icon"><use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-sort-ascending"></use></svg>',
                 },
             }
         })
@@ -40,9 +40,15 @@ VuejsDatatableFactory
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('page-header', require('./components/Header.vue').default);
+Vue.component('page-footer', require('./components/Footer.vue').default);
+Vue.component('page-sidebar', require('./components/Sidebar.vue').default);
+
 Vue.component('form-regular', require('./components/FormRegular.vue').default);
 Vue.component('form-help', require('./components/FormHelp.vue').default);
 Vue.component('form-check', require('./components/FormCheck.vue').default);
+Vue.component('list-control', require('./components/ListControl.vue').default);
+Vue.component('breadcrumbs', require('./components/Breadcrumbs.vue').default);
 
 Vue.component('barang-list', require('./pages/master/list/BarangList.vue').default);
 Vue.component('barang-form', require('./pages/master/form/BarangForm.vue').default);

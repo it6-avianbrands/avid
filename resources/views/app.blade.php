@@ -48,10 +48,10 @@
   <body class="c-app">
     <section id="app">
       <!-- component sidebar.blade.php -->
-      <x-sidebar/>
+      <page-sidebar image="{{ asset('assets/img/avian-logo.png') }}" text="{{ asset('assets/img/avian-full.png') }}"></page-sidebar>
       <div class="c-wrapper c-fixed-components">
         <!-- component header.blade.php -->
-        <x-header/>
+        <page-header image="{{ asset('assets/img/avian-logo.png') }}" text="{{ asset('assets/img/avian-full.png') }}"></page-header>
         <div class="c-body">
           <main class="c-main">
             <div class="container-fluid">
@@ -61,7 +61,7 @@
             </div>
           </main>
           <!-- component footer.blade.php -->
-          <x-footer/>
+          <page-footer></page-footer>
         </div>
       </div>
     </section>

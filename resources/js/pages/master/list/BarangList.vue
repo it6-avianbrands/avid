@@ -4,7 +4,42 @@
             <div class="card">
                 <div class="card-header"><h1>Master Barang</h1></div>
                 <div class="card-body">
-                    <datatable :columns="header" :data="detail"></datatable>
+                    <router-link class="btn btn-sm btn-primary" :to="route.add">Add</router-link>
+                    <datatable :columns="header" :data="detail">
+                        <template slot-scope="{row, columns}">
+                            <tr>
+                                <td>{{ row.KodeBarang }}</td>
+                                <td>{{ row.KodeProduk }}</td>
+                                <td>{{ row.NamaBarang }}</td>
+                                <td>{{ row.KodeMerk }}</td>
+                                <td>{{ row.KodeJenis }}</td>
+                                <td>{{ row.KodeUkuran }}</td>
+                                <td>{{ row.KodeModelSatuan }}</td>
+                                <td>{{ row.SatuanColi }}</td>
+                                <td>{{ row.DiscGroupBarang }}</td>
+                                <td>{{ row.ProdukGroup }}</td>
+                                <td>
+                                    <svg v-if="row.IsHadiah" class="c-icon">
+                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-check-alt"></use>
+                                    </svg>
+                                    <svg v-else class="c-icon">
+                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-x"></use>
+                                    </svg>
+                                </td>
+                                <td>
+                                    <svg v-if="row.IsBarangCabang" class="c-icon">
+                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-check-alt"></use>
+                                    </svg>
+                                    <svg v-else class="c-icon">
+                                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-x"></use>
+                                    </svg>
+                                </td>
+                                <td>
+                                    <list-control :id="row.KodeBarang"></list-control>
+                                </td>
+                            </tr>
+                        </template>
+                    </datatable>
                 </div>
                 <div class="card-footer"></div>
             </div>
@@ -16,6 +51,11 @@
     export default {
         data() {
             return {
+                route: {
+                    add: {
+                        name: 'BarangForm'
+                    }
+                },
                 header: [
                     {
                         label: "Kode",
@@ -65,11 +105,9 @@
                         label: "Barang Cabang",
                         field: "IsBarangCabang"
                     },
-                    /*{
-                        label: "Action",
-                        representedAs: ({KodeBarang}) => "<button class='btn btn-primary' id='" + KodeBarang + "' @click='openFormEdit'>Edit</button>",
-                        interpolate: true
-                    }*/
+                    {
+                        label: "Action"
+                    }
                 ],
                 detail: []
             }
@@ -86,6 +124,9 @@
             },
             openFormEdit(e) {
                 alert(e)
+            },
+            selected(crumb) {
+                console.log(crumb)
             }
         }
     }

@@ -1,7 +1,7 @@
 <template>
     <div :class="columnClass">
         <label v-text="label" :class="[labelClass, isRequired]" :for="id"></label>
-        <input class="form-control" :id="id" :type="type" :value="value" @input="handleInput"> 
+        <input class="form-control" :id="id" :type="type" :value="value" :disabled="disabled" @input="handleInput"> 
     </div>
 </template>
 
@@ -17,6 +17,10 @@
             label: String,
             required: String,
             value: String,
+            disabled: {
+                type: Boolean,
+                default: false
+            },
             size: {
                 type: Number,
                 default: 12

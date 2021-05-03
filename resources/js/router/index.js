@@ -15,7 +15,7 @@ const routes = [
     },
     {
         name: 'BarangForm',
-        path: '/barang/:id?',
+        path: '/barang/form/:id?',
         component: BarangForm,
         props: true
     }

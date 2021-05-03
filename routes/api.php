@@ -20,4 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/barang', [BarangController::class, 'listBarang']);
+Route::get('/barang/{id}', [BarangController::class, 'findBarangByID']);
 Route::post('/barang/add', [BarangController::class, 'addBarang']);
+Route::put('/barang/edit/{id}', [BarangController::class, 'editBarang']);

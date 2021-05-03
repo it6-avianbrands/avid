@@ -2,18 +2,19 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <form id="BarangForm" action="" method="post" enctype="multipart/form-data">
-                    <div class="card-header"><h1>Add/Edit Barang</h1></div>
+                <form id="BarangForm" action="" :method="this.id ? 'put' : 'post'" enctype="multipart/form-data">
+                    <div class="card-header"><h1>{{ this.id ? "Edit" : "Add" }} Barang</h1></div>
                     <!--CSRF Token-->
                     <slot></slot>
                     <div class="card-body">
+                        <router-link class="btn btn-sm btn-primary" :to="route.master">Back</router-link>
                         <div v-for="formRow in formHTML" class="form-group row">
                             <template v-for="form in formRow">
                                 <template v-if="form.template == 'regular'">
-                                    <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-regular>
+                                    <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" :disabled="form.primary && id" @input="setValue(form.name, $event)"></form-regular>
                                 </template>
                                 <template v-else-if="form.template == 'help'">
-                                    <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-help>
+                                    <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" :disabled="form.primary && id" @input="setValue(form.name, $event)"></form-help>
                                 </template>
                                 <template v-else>
                                     <form-check :size="form.size" :id="form.name" :label="form.label" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-check>
@@ -35,9 +36,15 @@
         props: ['id'],
         data() {
             return {
+                route: {
+                    master: {
+                        name: 'BarangList'
+                    }
+                },
                 formHTML: [
                     [
                         {
+                            primary: true,
                             template: "regular",
                             type: "text",
                             name: "KodeBarang",
@@ -281,56 +288,69 @@
                         }
                     ]
                 ],
-                formData: {
-                    KodeBarang: "testKodeBarang",
-                    KodeProduk: "testKodeProduk",
-                    NamaBarang: "testNamaBarang",
-                    Keterangan: "testKeterangan",
-                    KodeWarna: "testKodeWarna",
-                    Barcode: "testBarcode",
-                    KodeMerk: "testKodeMerk",
-                    KodeJenis: "testKodeJenis",
-                    KodeUkuran: "testKodeUkuran",
-                    KodeModelSatuan: "testKodeModelSatuan",
-                    KodeSatuan: "testKodeSatuan",
-                    QtySatuan: "0",
-                    BeratSatuan: "0",
-                    QtyColi: "0",
-                    SatuanColi: "testSatuanColi",
-                    DiscGroupBarang: "testDiscGroupBarang",
-                    ProdukGroup: "testProdukGroup",
-                    Group1: "testGroup1",
-                    Group2: "testGroup2",
-                    Group3: "testGroup3",
-                    Group4: "testGroup4",
-                    GroupA: "testGroupA",
-                    GroupB: "testGroupB",
-                    GroupC: "testGroupC",
-                    GroupD: "testGroupD",
-                    GroupDX: "testGroupDX",
-                    IsHadiah: true,
-                    IsBarangCabang: false
-                }
+                formData: {}
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            if (this.id)
+            {
+                this.getDataBarang(this.id)
+            }
         },
         methods: {
+            getDataBarang(id) {
+                axios.get('/api/barang/' + this.id).then((response) => {
+                    console.log(response)
+                    this.formData = response.data
+                })
+            },
             handleSubmit() {
                 console.log(this.$data.formData)
-                axios.post('/api/barang/add', this.$data.formData)
-                .then((response) => {
-                    console.log(response)
-                    if (response.data.status)
-                    {
-                        alert("Success")
-                        console.log(response.data.message)
-                    }
-                })
-                .catch((error) => {
-                    alert(error.response.data.message)
-                    console.log(error.response.data.message)
+                if (this.id)
+                {
+                    axios.put('/api/barang/edit/' + this.id, this.$data.formData)
+                    .then((response) => {
+                        console.log(response)
+                        if (response.data.status)
+                        {
+                            alert("Edit Success")
+                            console.log(response.data.message)
+                            //openMaster("BarangList")
+                            this.$router.push({
+                                name: "BarangList",
+                            })
+                        }
+                    })
+                    .catch((error) => {
+                        alert(error.response.data.message)
+                        console.log(error.response.data.message)
+                    })
+                }
+                else
+                {
+                    axios.post('/api/barang/add', this.$data.formData)
+                    .then((response) => {
+                        console.log(response)
+                        if (response.data.status)
+                        {
+                            alert("Add Success")
+                            console.log(response.data.message)
+                            //openMaster("BarangList")
+                            this.$router.push({
+                                name: "BarangList",
+                            })
+                        }
+                    })
+                    .catch((error) => {
+                        alert(error.response.data.message)
+                        console.log(error.response.data.message)
+                    })
+                }
+                
+            },
+            openMaster(route) {
+                this.$router.push({
+                    name: route,
                 })
             },
             setValue(key, e) {

@@ -10,7 +10,7 @@
                     </svg>
                 </button>
             </span>
-            <input class="form-control" :id="id" type="text" :autocomplete="id" :value="value" @input="handleInput">
+            <input class="form-control" :id="id" type="text" :autocomplete="id" :value="value" :disabled="disabled" @input="handleInput">
         </div>
     </div>
 </template>
@@ -28,6 +28,10 @@
             label: String,
             required: String,
             value: String,
+            disabled: {
+                type: Boolean,
+                default: false
+            },
             size: {
                 type: Number,
                 default: 12
