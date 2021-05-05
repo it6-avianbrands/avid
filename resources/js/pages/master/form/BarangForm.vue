@@ -299,7 +299,7 @@
         },
         methods: {
             getDataBarang(id) {
-                axios.get('/api/barang/' + this.id).then((response) => {
+                axios.get('/api/barang/' + id).then((response) => {
                     console.log(response)
                     this.formData = response.data
                 })

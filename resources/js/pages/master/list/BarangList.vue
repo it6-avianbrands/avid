@@ -35,7 +35,7 @@
                                     </svg>
                                 </td>
                                 <td>
-                                    <list-control :id="row.KodeBarang"></list-control>
+                                    <list-control :id="row.KodeBarang" :url="route.edit.name"></list-control>
                                 </td>
                             </tr>
                         </template>
@@ -53,6 +53,9 @@
             return {
                 route: {
                     add: {
+                        name: 'BarangForm'
+                    },
+                    edit: {
                         name: 'BarangForm'
                     }
                 },
@@ -121,9 +124,6 @@
                     console.log(response.data)
                     this.detail = response.data
                 })
-            },
-            openFormEdit(e) {
-                alert(e)
             },
             selected(crumb) {
                 console.log(crumb)

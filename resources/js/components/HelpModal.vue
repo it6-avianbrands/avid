@@ -3,11 +3,11 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h4 class="modal-title" v-text="title"></h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" v-text="title"></h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
-                <p v-text="body"></p>
+                    <p v-text="body"></p>
                 </div>
                 <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
@@ -20,11 +20,26 @@
 
 <script>
     export default {
-        props: ['id', 'title', 'body'],
+        props: ['id', 'title', 'body', 'query', 'key'],
+        mounted() {
+            if (this.param)
+            {
+                this.getData(this.query, this.key)
+            }
+        },
         data() {
             return {
-                modalID: this.id + "Modal"
+                modalID: this.id + "Modal",
+                listData: {}
             }
+        },
+        methods: {
+            getData(route, id) {
+                axios.get(route + id).then((response) => {
+                    console.log(response)
+                    this.listData = response.data
+                })
+            },
         }
     }
 </script>

@@ -4,29 +4,18 @@
 
 <script>
     export default {
-        props: ["id"],
+        props: ["id", "url"],
         data() {
             return {
                 route: {
                     edit: {
-                        name: 'BarangForm',
+                        name: this.url,
                         params: 
                         {
                             id: this.id
                         }
                     }
                 }
-            }
-        },
-        methods: {
-            openFormEdit() {
-                this.$router.push({
-                    name: 'BarangForm',
-                    params: 
-                    {
-                        id: this.id
-                    }
-                })
             }
         }
     }

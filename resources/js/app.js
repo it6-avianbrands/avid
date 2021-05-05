@@ -52,6 +52,8 @@ Vue.component('breadcrumbs', require('./components/Breadcrumbs.vue').default);
 
 Vue.component('barang-list', require('./pages/master/list/BarangList.vue').default);
 Vue.component('barang-form', require('./pages/master/form/BarangForm.vue').default);
+Vue.component('produk-list', require('./pages/master/list/ProdukList.vue').default);
+Vue.component('produk-form', require('./pages/master/form/ProdukForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
