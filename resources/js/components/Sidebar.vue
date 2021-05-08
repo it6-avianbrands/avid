@@ -33,6 +33,10 @@
             </svg> Master</a>
             <ul class="c-sidebar-nav-dropdown-items">
             <li class="c-sidebar-nav-item"><router-link to="/barang" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Barang</router-link></li>
+            <li class="c-sidebar-nav-item"><router-link to="/produk" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Produk</router-link></li>
+            <li class="c-sidebar-nav-item"><router-link to="/merk" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Merk</router-link></li>
+            <li class="c-sidebar-nav-item"><router-link to="/jenis" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Jenis</router-link></li>
+            <li class="c-sidebar-nav-item"><router-link to="/ukuran" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Ukuran</router-link></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/cards.html"><span class="c-sidebar-nav-icon"></span> Cards</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/carousel.html"><span class="c-sidebar-nav-icon"></span> Carousel</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/collapse.html"><span class="c-sidebar-nav-icon"></span> Collapse</a></li>

@@ -54,6 +54,12 @@ Vue.component('barang-list', require('./pages/master/list/BarangList.vue').defau
 Vue.component('barang-form', require('./pages/master/form/BarangForm.vue').default);
 Vue.component('produk-list', require('./pages/master/list/ProdukList.vue').default);
 Vue.component('produk-form', require('./pages/master/form/ProdukForm.vue').default);
+Vue.component('merk-list', require('./pages/master/list/MerkList.vue').default);
+Vue.component('merk-form', require('./pages/master/form/MerkForm.vue').default);
+Vue.component('jenis-list', require('./pages/master/list/JenisList.vue').default);
+Vue.component('jenis-form', require('./pages/master/form/JenisForm.vue').default);
+Vue.component('ukuran-list', require('./pages/master/list/UkuranList.vue').default);
+Vue.component('ukuran-form', require('./pages/master/form/UkuranForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

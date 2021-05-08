@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\MJUController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,25 @@ Route::prefix('produk')->group(function () {
     Route::get('/{id}', [ProdukController::class, 'findProdukByID']);
     Route::post('/add', [ProdukController::class, 'addProduk']);
     Route::put('/edit/{id}', [ProdukController::class, 'editProduk']);
+});
+
+Route::prefix('merk')->group(function () {
+    Route::get('/', [MJUController::class, 'listMerk']);
+    Route::get('/{id}', [MJUController::class, 'findMerkByID']);
+    Route::post('/add', [MJUController::class, 'addMerk']);
+    Route::put('/edit/{id}', [MJUController::class, 'editMerk']);
+});
+
+Route::prefix('jenis')->group(function () {
+    Route::get('/', [MJUController::class, 'listJenis']);
+    Route::get('/{id}', [MJUController::class, 'findJenisByID']);
+    Route::post('/add', [MJUController::class, 'addJenis']);
+    Route::put('/edit/{id}', [MJUController::class, 'editJenis']);
+});
+
+Route::prefix('ukuran')->group(function () {
+    Route::get('/', [MJUController::class, 'listUkuran']);
+    Route::get('/{id}', [MJUController::class, 'findUkuranByID']);
+    Route::post('/add', [MJUController::class, 'addUkuran']);
+    Route::put('/edit/{id}', [MJUController::class, 'editUkuran']);
 });
