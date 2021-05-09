@@ -2023,6 +2023,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       content: this.value,
       modalTarget: "#" + this.id + "Modal",
+      modalRoute: "/api/" + this.id.toLowerCase().replace("kode", ""),
       labelClass: "col-form-label",
       isRequired: this.required ? "required" : "",
       columnClass: ["col-lg-" + this.size, "col-md-" + this.size].join(" ")
@@ -2031,6 +2032,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleInput: function handleInput(e) {
       this.$emit("input", e.target.value);
+    },
+    handleSearch: function handleSearch(id) {
+      this.$refs[id].searchByValue();
+    },
+    showModal: function showModal(modal) {
+      this.$refs[modal].click();
     }
   }
 });
@@ -2242,11 +2249,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['id', 'title', 'body', 'query', 'key'],
-  mounted: function mounted() {
-    if (this.param) {
-      this.getData(this.query, this.key);
+  props: {
+    id: String,
+    title: String,
+    route: String,
+    query: {
+      type: String,
+      "default": ""
     }
   },
   data: function data() {
@@ -2263,6 +2288,12 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
         _this.listData = response.data;
       });
+    },
+    searchByValue: function searchByValue() {
+      this.getData(this.route, this.query);
+    },
+    isColumnVisible: function isColumnVisible(name) {
+      return !name.includes("_at");
     }
   }
 });
@@ -23393,7 +23424,13 @@ var render = function() {
     { class: _vm.columnClass },
     [
       _c("help-modal", {
-        attrs: { id: _vm.id, title: _vm.label, content: _vm.label }
+        ref: _vm.id,
+        attrs: {
+          id: _vm.id,
+          title: _vm.label,
+          body: _vm.label,
+          route: _vm.modalRoute
+        }
       }),
       _vm._v(" "),
       _c("label", {
@@ -23407,11 +23444,17 @@ var render = function() {
           _c(
             "button",
             {
+              ref: _vm.modalTarget,
               staticClass: "btn btn-primary help-search",
               attrs: {
                 type: "button",
                 "data-toggle": "modal",
                 "data-target": _vm.modalTarget
+              },
+              on: {
+                click: function($event) {
+                  return _vm.handleSearch(_vm.id)
+                }
               }
             },
             [
@@ -23436,7 +23479,19 @@ var render = function() {
             disabled: _vm.disabled
           },
           domProps: { value: _vm.value },
-          on: { input: _vm.handleInput }
+          on: {
+            input: _vm.handleInput,
+            keydown: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
+              $event.preventDefault()
+              return _vm.showModal(_vm.modalTarget)
+            }
+          }
         })
       ])
     ],
@@ -23876,7 +23931,43 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
-              _c("p", { domProps: { textContent: _vm._s(_vm.body) } })
+              _c(
+                "table",
+                { staticClass: "table table-responsive-sm table-sm" },
+                [
+                  _c("thead", [
+                    _c(
+                      "tr",
+                      _vm._l(_vm.listData[0], function(value, name) {
+                        return _c("th", [
+                          _vm.isColumnVisible(name)
+                            ? _c("span", [_vm._v(_vm._s(name))])
+                            : _vm._e()
+                        ])
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listData, function(data) {
+                      return _c(
+                        "tr",
+                        _vm._l(data, function(value, name) {
+                          return _c("td", [
+                            _vm.isColumnVisible(name)
+                              ? _c("span", [_vm._v(_vm._s(value))])
+                              : _vm._e()
+                          ])
+                        }),
+                        0
+                      )
+                    }),
+                    0
+                  )
+                ]
+              )
             ]),
             _vm._v(" "),
             _vm._m(1)

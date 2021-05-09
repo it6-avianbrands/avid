@@ -7,7 +7,22 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
-                    <p v-text="body"></p>
+                    <table class="table table-responsive-sm table-sm">
+                        <thead>
+                            <tr>
+                                <th v-for="(value, name) in listData[0]">
+                                    <span v-if="isColumnVisible(name)">{{ name }}</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="data in listData">
+                                <td v-for="(value, name) in data">
+                                    <span v-if="isColumnVisible(name)">{{ value }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
@@ -20,11 +35,13 @@
 
 <script>
     export default {
-        props: ['id', 'title', 'body', 'query', 'key'],
-        mounted() {
-            if (this.param)
-            {
-                this.getData(this.query, this.key)
+        props: {
+            id: String,
+            title: String,
+            route: String,
+            query: {
+                type: String,
+                default: ""
             }
         },
         data() {
@@ -40,6 +57,12 @@
                     this.listData = response.data
                 })
             },
+            searchByValue() {
+                this.getData(this.route, this.query)
+            },
+            isColumnVisible(name) {
+                return !name.includes("_at")
+            }
         }
     }
 </script>
