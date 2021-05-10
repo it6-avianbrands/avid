@@ -2033,6 +2033,9 @@ __webpack_require__.r(__webpack_exports__);
     handleInput: function handleInput(e) {
       this.$emit("input", e.target.value);
     },
+    handleConfirmed: function handleConfirmed(value) {
+      this.value = value;
+    },
     handleSearch: function handleSearch(id) {
       this.$refs[id].searchByValue();
     },
@@ -2264,6 +2267,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: String,
@@ -2277,7 +2286,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       modalID: this.id + "Modal",
-      listData: {}
+      listData: {},
+      selectedData: null
     };
   },
   methods: {
@@ -2289,11 +2299,36 @@ __webpack_require__.r(__webpack_exports__);
         _this.listData = response.data;
       });
     },
+    handleConfirm: function handleConfirm() {
+      if (this.selectedData === null) {
+        alert("Please enter a value");
+      } else {
+        this.$emit("confirmed", this.selectedData);
+        this.$refs[this.modalID].click();
+      }
+    },
+    handleChange: function handleChange(value) {
+      this.selectedData = value;
+    },
+    isRadioChecked: function isRadioChecked(value) {
+      return this.selectedData === value;
+    },
     searchByValue: function searchByValue() {
       this.getData(this.route, this.query);
     },
     isColumnVisible: function isColumnVisible(name) {
       return !name.includes("_at");
+    },
+    getRowID: function getRowID(data) {
+      return Object.keys(data)[0];
+    },
+    getRowValue: function getRowValue(data) {
+      return data[this.getRowID(data)];
+    },
+    getSelectedClass: function getSelectedClass(value) {
+      return {
+        "table-info": this.isRadioChecked(value)
+      };
     }
   }
 });
@@ -23430,7 +23465,8 @@ var render = function() {
           title: _vm.label,
           body: _vm.label,
           route: _vm.modalRoute
-        }
+        },
+        on: { confirmed: _vm.handleConfirmed }
       }),
       _vm._v(" "),
       _c("label", {
@@ -23938,14 +23974,18 @@ var render = function() {
                   _c("thead", [
                     _c(
                       "tr",
-                      _vm._l(_vm.listData[0], function(value, name) {
-                        return _c("th", [
-                          _vm.isColumnVisible(name)
-                            ? _c("span", [_vm._v(_vm._s(name))])
-                            : _vm._e()
-                        ])
-                      }),
-                      0
+                      [
+                        _vm._l(_vm.listData[0], function(value, name) {
+                          return _c("th", [
+                            _vm.isColumnVisible(name)
+                              ? _c("span", [_vm._v(_vm._s(name))])
+                              : _vm._e()
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Action")])
+                      ],
+                      2
                     )
                   ]),
                   _vm._v(" "),
@@ -23954,14 +23994,42 @@ var render = function() {
                     _vm._l(_vm.listData, function(data) {
                       return _c(
                         "tr",
-                        _vm._l(data, function(value, name) {
-                          return _c("td", [
-                            _vm.isColumnVisible(name)
-                              ? _c("span", [_vm._v(_vm._s(value))])
-                              : _vm._e()
+                        { class: _vm.getSelectedClass(_vm.getRowValue(data)) },
+                        [
+                          _vm._l(data, function(value, name) {
+                            return _c("td", [
+                              _vm.isColumnVisible(name)
+                                ? _c("span", [_vm._v(_vm._s(value))])
+                                : _vm._e()
+                            ])
+                          }),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("input", {
+                                staticClass: "form-check-input",
+                                attrs: {
+                                  id: [
+                                    _vm.getRowID(data),
+                                    _vm.getRowValue(data)
+                                  ].join("_"),
+                                  type: "radio"
+                                },
+                                domProps: {
+                                  checked: _vm.isRadioChecked(
+                                    _vm.getRowValue(data)
+                                  )
+                                },
+                                on: {
+                                  change: function($event) {
+                                    _vm.handleChange(_vm.getRowValue(data))
+                                  }
+                                }
+                              })
+                            ])
                           ])
-                        }),
-                        0
+                        ],
+                        2
                       )
                     }),
                     0
@@ -23970,7 +24038,27 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  ref: _vm.modalID,
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: { click: _vm.handleConfirm }
+                },
+                [_vm._v("Confirm")]
+              )
+            ])
           ])
         ]
       )
@@ -23994,27 +24082,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Confirm")]
-      )
-    ])
   }
 ]
 render._withStripped = true

@@ -13,20 +13,26 @@
                                 <th v-for="(value, name) in listData[0]">
                                     <span v-if="isColumnVisible(name)">{{ name }}</span>
                                 </th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="data in listData">
+                            <tr :class="getSelectedClass(getRowValue(data))" v-for="data in listData">
                                 <td v-for="(value, name) in data">
                                     <span v-if="isColumnVisible(name)">{{ value }}</span>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" :id="[getRowID(data), getRowValue(data)].join('_')" type="radio" :checked="isRadioChecked(getRowValue(data))" @change="handleChange(getRowValue(data))">
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="button">Confirm</button>
+                <button class="btn btn-secondary" :ref="modalID" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="button" @click="handleConfirm">Confirm</button>
                 </div>
             </div>
         </div>
@@ -47,7 +53,8 @@
         data() {
             return {
                 modalID: this.id + "Modal",
-                listData: {}
+                listData: {},
+                selectedData: null
             }
         },
         methods: {
@@ -57,11 +64,39 @@
                     this.listData = response.data
                 })
             },
+            handleConfirm() {
+                if (this.selectedData === null)
+                {
+                    alert("Please enter a value")
+                }
+                else
+                {
+                    this.$emit("confirmed", this.selectedData)
+                    this.$refs[this.modalID].click()
+                }
+            },
+            handleChange(value) {
+                this.selectedData = value
+            },
+            isRadioChecked(value) {
+                return this.selectedData === value
+            },
             searchByValue() {
                 this.getData(this.route, this.query)
             },
             isColumnVisible(name) {
                 return !name.includes("_at")
+            },
+            getRowID(data) {
+                return Object.keys(data)[0]
+            },
+            getRowValue(data) {
+                return data[this.getRowID(data)]
+            },
+            getSelectedClass(value) {
+                return {
+                    "table-info": this.isRadioChecked(value)
+                }
             }
         }
     }

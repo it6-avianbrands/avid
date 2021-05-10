@@ -1,6 +1,6 @@
 <template>
     <div :class="columnClass">
-        <help-modal :ref="id" :id="id" :title="label" :body="label" :route="modalRoute"></help-modal>
+        <help-modal :ref="id" :id="id" :title="label" :body="label" :route="modalRoute" @confirmed="handleConfirmed" ></help-modal>
         <label v-text="label" :class="[labelClass, isRequired]" :for="id"></label>
         <div class="input-group">
             <span class="input-group-prepend">
@@ -53,6 +53,9 @@
         methods: {
             handleInput(e) {
                 this.$emit("input", e.target.value)
+            },
+            handleConfirmed(value) {
+                this.value = value
             },
             handleSearch(id) {
                 this.$refs[id].searchByValue()
