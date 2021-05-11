@@ -90,7 +90,10 @@
                 axios.get(route + id).then((response) => {
                     console.log(response)
                     this.listData = response.data
-                    this.filter = this.getRowName(this.listData[0])
+                    if (!this.filter)
+                    {
+                        this.filter = this.getRowName(this.listData[0])
+                    }
                 })
             },
             handleConfirm() {
@@ -111,10 +114,7 @@
                 this.selectedData.name = name
             },
             handleSearch() {
-                if (this.filter.includes("Keterangan"))
-                {
-                    this.searchByValue("/search/" + this.searchTerm)
-                }
+                this.searchByValue("/" + ["search", this.filter, this.searchTerm].join("/"))
             },
             isRadioChecked(value) {
                 return this.selectedID === value

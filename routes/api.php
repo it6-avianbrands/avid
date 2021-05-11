@@ -31,7 +31,7 @@ Route::prefix('barang')->group(function () {
 Route::prefix('produk')->group(function () {
     Route::get('/', [ProdukController::class, 'listProduk']);
     Route::get('/{id}', [ProdukController::class, 'findProdukByID']);
-    Route::get('/search/{search}', [ProdukController::class, 'searchProdukByName']);
+    Route::get('/search/{filter}/{search}', [ProdukController::class, 'searchProdukByFilter']);
     Route::post('/add', [ProdukController::class, 'addProduk']);
     Route::put('/edit/{id}', [ProdukController::class, 'editProduk']);
 });
@@ -39,7 +39,7 @@ Route::prefix('produk')->group(function () {
 Route::prefix('merk')->group(function () {
     Route::get('/', [MJUController::class, 'listMerk']);
     Route::get('/{id}', [MJUController::class, 'findMerkByID']);
-    Route::get('/search/{search}', [MJUController::class, 'searchMerkByName']);
+    Route::get('/search/{filter}/{search}', [MJUController::class, 'searchMerkByFilter']);
     Route::post('/add', [MJUController::class, 'addMerk']);
     Route::put('/edit/{id}', [MJUController::class, 'editMerk']);
 });
@@ -47,7 +47,7 @@ Route::prefix('merk')->group(function () {
 Route::prefix('jenis')->group(function () {
     Route::get('/', [MJUController::class, 'listJenis']);
     Route::get('/{id}', [MJUController::class, 'findJenisByID']);
-    Route::get('/search/{search}', [MJUController::class, 'searchJenisByName']);
+    Route::get('/search/{filter}/{search}', [MJUController::class, 'searchJenisByFilter']);
     Route::post('/add', [MJUController::class, 'addJenis']);
     Route::put('/edit/{id}', [MJUController::class, 'editJenis']);
 });
@@ -55,7 +55,7 @@ Route::prefix('jenis')->group(function () {
 Route::prefix('ukuran')->group(function () {
     Route::get('/', [MJUController::class, 'listUkuran']);
     Route::get('/{id}', [MJUController::class, 'findUkuranByID']);
-    Route::get('/search/{search}', [MJUController::class, 'searchUkuranByName']);
+    Route::get('/search/{filter}/{search}', [MJUController::class, 'searchUkuranByFilter']);
     Route::post('/add', [MJUController::class, 'addUkuran']);
     Route::put('/edit/{id}', [MJUController::class, 'editUkuran']);
 });

@@ -73,7 +73,7 @@
                 this.modalQuery = ""
                 if (query && query !== "?")
                 {
-                    this.modalQuery = "/search/" + query
+                    this.modalQuery = "/" + ["search", this.id.replace("Kode", "Keterangan"), query].join("/")
                 }
                 this.handleSearch(id)
             },
@@ -83,7 +83,7 @@
                     this.modalQuery = ""
                     if (e.target.value !== "?")
                     {
-                        this.modalQuery = "/search/" + e.target.value
+                        this.modalQuery = "/" + ["search", this.id.replace("Kode", "Keterangan"), e.target.value].join("/")
                     }
                     this.$refs[modal].click()
                 }

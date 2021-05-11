@@ -22,9 +22,9 @@ class MJUController extends Controller
         return response()->json($merk);
     }
 
-    public function searchMerkByName($search)
+    public function searchMerkByFilter($filter, $search)
     {
-        $merk = Merk::where("KeteranganMerk", "like", "%".$search."%")->get();
+        $merk = Merk::where($filter, "like", "%".$search."%")->get();
         return response()->json($merk);
     }
 
@@ -88,9 +88,9 @@ class MJUController extends Controller
         return response()->json($jenis);
     }
 
-    public function searchJenisByName($search)
+    public function searchJenisByFilter($filter, $search)
     {
-        $jenis = Jenis::where("KeteranganJenis", "like", "%".$search."%")->get();
+        $jenis = Jenis::where($filter, "like", "%".$search."%")->get();
         return response()->json($jenis);
     }
 
@@ -154,9 +154,9 @@ class MJUController extends Controller
         return response()->json($ukuran);
     }
 
-    public function searchUkuranByName($search)
+    public function searchUkuranByFilter($filter, $search)
     {
-        $ukuran = Ukuran::where("KeteranganUkuran", "like", "%".$search."%")->get();
+        $ukuran = Ukuran::where($filter, "like", "%".$search."%")->get();
         return response()->json($ukuran);
     }
 

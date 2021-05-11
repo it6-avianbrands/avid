@@ -20,9 +20,9 @@ class ProdukController extends Controller
         return response()->json($produk);
     }
 
-    public function searchProdukByName($search)
+    public function searchProdukByFilter($filter, $search)
     {
-        $produk = Produk::where("KeteranganProduk", "like", "%".$search."%")->get();
+        $produk = Produk::where($filter, "like", "%".$search."%")->get();
         return response()->json($produk);
     }
 

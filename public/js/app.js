@@ -2052,7 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
       this.modalQuery = "";
 
       if (query && query !== "?") {
-        this.modalQuery = "/search/" + query;
+        this.modalQuery = "/" + ["search", this.id.replace("Kode", "Keterangan"), query].join("/");
       }
 
       this.handleSearch(id);
@@ -2062,7 +2062,7 @@ __webpack_require__.r(__webpack_exports__);
         this.modalQuery = "";
 
         if (e.target.value !== "?") {
-          this.modalQuery = "/search/" + e.target.value;
+          this.modalQuery = "/" + ["search", this.id.replace("Kode", "Keterangan"), e.target.value].join("/");
         }
 
         this.$refs[modal].click();
@@ -2351,7 +2351,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(route + id).then(function (response) {
         console.log(response);
         _this.listData = response.data;
-        _this.filter = _this.getRowName(_this.listData[0]);
+
+        if (!_this.filter) {
+          _this.filter = _this.getRowName(_this.listData[0]);
+        }
       });
     },
     handleConfirm: function handleConfirm() {
@@ -2369,9 +2372,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedData.name = name;
     },
     handleSearch: function handleSearch() {
-      if (this.filter.includes("Keterangan")) {
-        this.searchByValue("/search/" + this.searchTerm);
-      }
+      this.searchByValue("/" + ["search", this.filter, this.searchTerm].join("/"));
     },
     isRadioChecked: function isRadioChecked(value) {
       return this.selectedID === value;
