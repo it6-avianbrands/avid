@@ -22,6 +22,12 @@ class MJUController extends Controller
         return response()->json($merk);
     }
 
+    public function searchMerkByName($search)
+    {
+        $merk = Merk::where("KeteranganMerk", "like", "%".$search."%")->get();
+        return response()->json($merk);
+    }
+
     public function addMerk(Request $request)
     {
         /*$validation = Validator::make($request->all(), [
@@ -82,6 +88,12 @@ class MJUController extends Controller
         return response()->json($jenis);
     }
 
+    public function searchJenisByName($search)
+    {
+        $jenis = Jenis::where("KeteranganJenis", "like", "%".$search."%")->get();
+        return response()->json($jenis);
+    }
+
     public function addJenis(Request $request)
     {
         /*$validation = Validator::make($request->all(), [
@@ -139,6 +151,12 @@ class MJUController extends Controller
     public function findUkuranByID($id)
     {
         $ukuran = Ukuran::find($id);
+        return response()->json($ukuran);
+    }
+
+    public function searchUkuranByName($search)
+    {
+        $ukuran = Ukuran::where("KeteranganUkuran", "like", "%".$search."%")->get();
         return response()->json($ukuran);
     }
 

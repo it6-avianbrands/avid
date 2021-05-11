@@ -20,6 +20,12 @@ class ProdukController extends Controller
         return response()->json($produk);
     }
 
+    public function searchProdukByName($search)
+    {
+        $produk = Produk::where("KeteranganProduk", "like", "%".$search."%")->get();
+        return response()->json($produk);
+    }
+
     public function addProduk(Request $request)
     {
         /*$validation = Validator::make($request->all(), [
