@@ -75,4 +75,15 @@ class ProdukController extends Controller
             "data" => ""
         ]);
     }
+
+    public function deleteProduk($id)
+    {
+        Produk::find($id)->delete();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Delete Produk success.",
+            "data" => ""
+        ]);
+    }
 }

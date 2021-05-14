@@ -4,7 +4,10 @@
             <div class="card">
                 <div class="card-header"><h1>Master Produk</h1></div>
                 <div class="card-body">
-                    <router-link class="btn btn-sm btn-primary" :to="route.add">Add</router-link>
+                    <router-link :class="route.add.color" class="mb-3" :to="route.add" tag="button">
+                        <span v-text="route.add.caption" class="pr-1">Add</span>
+                        <i :class="route.add.icon"></i>
+                    </router-link>
                     <datatable :columns="header" :data="detail">
                         <template slot-scope="{row, columns}">
                             <tr>
@@ -12,7 +15,8 @@
                                 <td>{{ row.InisialProduk }}</td>
                                 <td>{{ row.KeteranganProduk }}</td>
                                 <td>
-                                    <list-control :id="row.KodeProduk" :url="route.edit.name"></list-control>
+                                    <list-control :id="row.KodeProduk" :url="route.edit.name" :caption="route.edit.caption" :color="route.edit.color" :icon="route.edit.icon"></list-control>
+                                    <list-control :id="row.KodeProduk" :caption="route.delete.caption" :color="route.delete.color" :icon="route.delete.icon"></list-control>
                                 </td>
                             </tr>
                         </template>
@@ -25,15 +29,28 @@
 </template>
 
 <script>
+    import EventBus from '../../../bus'
+
     export default {
         data() {
             return {
                 route: {
                     add: {
-                        name: 'ProdukForm'
+                        name: 'ProdukForm',
+                        caption: "Add",
+                        color: 'btn btn-success',
+                        icon: 'fas fa-plus'
                     },
                     edit: {
-                        name: 'ProdukForm'
+                        name: 'ProdukForm',
+                        caption: "Edit",
+                        color: 'btn btn-primary',
+                        icon: 'fas fa-edit'
+                    },
+                    delete: {
+                        caption: "Delete",
+                        color: 'btn btn-danger',
+                        icon: 'fas fa-trash'
                     }
                 },
                 header: [
@@ -57,6 +74,7 @@
             }
         },
         mounted() {
+            this.getCurrentRoute()
             this.getListProduk()
         },
         methods: {
@@ -66,8 +84,8 @@
                     this.detail = response.data
                 })
             },
-            selected(crumb) {
-                console.log(crumb)
+            getCurrentRoute() {
+                EventBus.$emit('route', this.$router.currentRoute.meta.breadcrumbs)
             }
         }
     }

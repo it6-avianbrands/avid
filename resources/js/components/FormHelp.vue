@@ -64,8 +64,8 @@
                 this.value = value.id
                 this.valueInfo = value.name
             },
-            handleSearch(id) {
-                this.$refs[id].searchTerm = null
+            handleSearch(id, term) {
+                this.$refs[id].searchTerm = term === "?" ? null : term
                 this.$refs[id].searchByValue(this.modalQuery)
             },
             showModalClick(id) {
@@ -75,7 +75,7 @@
                 {
                     this.modalQuery = "/" + ["search", this.id.replace("Kode", "Keterangan"), query].join("/")
                 }
-                this.handleSearch(id)
+                this.handleSearch(id, query)
             },
             showModalKeyPress(modal, e) {
                 if (e.target.value)

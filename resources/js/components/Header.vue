@@ -77,7 +77,7 @@
             </div>
         </li>
         </ul>
-        <breadcrumbs :crumbs="route.crumbs" @selected="selected"></breadcrumbs>
+        <breadcrumbs></breadcrumbs>
     </header>
 </template>
 
@@ -89,25 +89,7 @@
         },
         data() {
             return {
-                route: {
-                    crumbs: [
-                        {
-                            text: "Home",
-                            link: {
-
-                            }
-                        },
-                        { 
-                            text: "Master Barang",
-                            link: {
-
-                            }
-                        }
-                    ],
-                    add: {
-                        name: 'BarangForm'
-                    }
-                }
+                
             }
         }
     }

@@ -50,6 +50,8 @@ Vue.component('form-check', require('./components/FormCheck.vue').default);
 Vue.component('list-control', require('./components/ListControl.vue').default);
 Vue.component('breadcrumbs', require('./components/Breadcrumbs.vue').default);
 
+Vue.component('dashboard', require('./pages/Dashboard.vue').default);
+
 Vue.component('barang-list', require('./pages/master/list/BarangList.vue').default);
 Vue.component('barang-form', require('./pages/master/form/BarangForm.vue').default);
 Vue.component('produk-list', require('./pages/master/list/ProdukList.vue').default);

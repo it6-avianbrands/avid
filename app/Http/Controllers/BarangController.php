@@ -110,4 +110,15 @@ class BarangController extends Controller
             "data" => ""
         ]);
     }
+
+    public function deleteBarang($id)
+    {
+        Barang::find($id)->delete();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Delete Barang success.",
+            "data" => ""
+        ]);
+    }
 }

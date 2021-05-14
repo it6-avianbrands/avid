@@ -76,6 +76,17 @@ class MJUController extends Controller
         ]);
     }
 
+    public function deleteMerk($id)
+    {
+        Merk::find($id)->delete();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Delete Merk success.",
+            "data" => ""
+        ]);
+    }
+
     public function listJenis()
     {
         $jenis = Jenis::all();
@@ -142,6 +153,17 @@ class MJUController extends Controller
         ]);
     }
 
+    public function deleteJenis($id)
+    {
+        Jenis::find($id)->delete();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Delete Jenis success.",
+            "data" => ""
+        ]);
+    }
+
     public function listUkuran()
     {
         $ukuran = Ukuran::all();
@@ -204,6 +226,17 @@ class MJUController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Edit Ukuran success.",
+            "data" => ""
+        ]);
+    }
+
+    public function deleteUkuran($id)
+    {
+        Ukuran::find($id)->delete();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Delete Ukuran success.",
             "data" => ""
         ]);
     }

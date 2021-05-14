@@ -4,7 +4,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" v-text="title"></h4>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <button class="close" type="button" data-dismiss="modal" @click="resetFilter" aria-label="Close">
+                        <span aria-hidden="true">
+                            <small><i class="fas fa-times"></i></small>
+                        </span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -52,7 +56,7 @@
                 </div>
                 <div class="modal-footer">
                     <span v-text="warning" class="help-block help-warning"></span>
-                    <button class="btn btn-secondary" :ref="modalID" type="button" data-dismiss="modal">Close</button>
+                    <button class="btn btn-secondary" :ref="modalID" type="button" data-dismiss="modal" @click="resetFilter">Close</button>
                     <button class="btn btn-primary" type="button" @click="handleConfirm">Confirm</button>
                 </div>
             </div>
@@ -128,6 +132,9 @@
             },
             setFilter(name) {
                 this.filter = name
+            },
+            resetFilter() {
+                this.filter = this.getRowName(this.listData[0])
             },
             getRowID(data) {
                 return Object.keys(data)[0]

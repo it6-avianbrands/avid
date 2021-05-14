@@ -2,12 +2,22 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <form id="BarangForm" action="" :method="this.id ? 'put' : 'post'" enctype="multipart/form-data">
-                    <div class="card-header"><h1>{{ this.id ? "Edit" : "Add" }} Barang</h1></div>
+                <form id="BarangForm" action="" :method="id ? 'put' : 'post'" enctype="multipart/form-data">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h1>{{ id ? "Edit" : "Add" }} Barang</h1>
+                            </div>
+                            <div class="col d-flex align-items-center justify-content-end">
+                                <router-link class="close text-dark" :to="route.master">
+                                    <i :class="route.master.alt"></i>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
                     <!--CSRF Token-->
                     <slot></slot>
                     <div class="card-body">
-                        <router-link class="btn btn-sm btn-primary" :to="route.master">Back</router-link>
                         <div v-for="formRow in formHTML" class="form-group row">
                             <template v-for="form in formRow">
                                 <template v-if="form.template == 'regular'">
@@ -23,7 +33,18 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" type="submit" @click.prevent="handleSubmit"> Submit</button>
+                        <router-link :class="route.master.color" :to="route.master">
+                            <i :class="route.master.icon"></i>
+                            <span v-text="route.master.caption" class="pr-1"></span>
+                        </router-link>
+                        <button v-if="id" :class="route.delete.color" type="button" @click="handleDelete">
+                            <span v-text="route.delete.caption" class="pr-1"></span>
+                            <i :class="route.delete.icon"></i>
+                        </button>
+                        <button :class="route.save.color" type="submit" @click.prevent="handleSubmit">
+                            <span v-text="route.save.caption" class="pr-1"></span>
+                            <i :class="route.save.icon"></i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -32,13 +53,29 @@
 </template>
 
 <script>
+    import EventBus from '../../../bus'
+
     export default {
         props: ['id'],
         data() {
             return {
                 route: {
                     master: {
-                        name: 'BarangList'
+                        name: 'BarangList',
+                        caption: "Back",
+                        color: 'btn btn-secondary',
+                        icon: 'fas fa-chevron-left',
+                        alt: 'fas fa-times'
+                    },
+                    save: {
+                        caption: 'Save',
+                        color: 'btn btn-success float-right',
+                        icon: 'fas fa-save'
+                    },
+                    delete: {
+                        caption: 'Delete',
+                        color: 'btn btn-danger',
+                        icon: 'fas fa-trash'
                     }
                 },
                 formHTML: [
@@ -292,10 +329,12 @@
             }
         },
         mounted() {
+            let form = [this.id ? "Edit" : "Add", "Barang"].join(" ")
             if (this.id)
             {
                 this.getDataBarang(this.id)
             }
+            this.getCurrentRoute(form)
         },
         methods: {
             getDataBarang(id) {
@@ -346,7 +385,24 @@
                         console.log(error.response.data.message)
                     })
                 }
-                
+            },
+            handleDelete() {
+                let flag = confirm(["Delete data", this.id, "?"].join(" "))
+                if (flag)
+                {
+                    axios.delete('/api/barang/delete/' + this.id).then((response) => {
+                        console.log(response)
+                        if (response.data.status)
+                        {
+                            alert("Delete Success")
+                            console.log(response.data.message)
+                            //openMaster("BarangList")
+                            this.$router.push({
+                                name: "BarangList",
+                            })
+                        }
+                    })
+                }
             },
             openMaster(route) {
                 this.$router.push({
@@ -355,6 +411,12 @@
             },
             setValue(key, e) {
                 this.formData[key] = e
+            },
+            getCurrentRoute(form) {
+                let currentRoute = this.$router.currentRoute.meta.breadcrumbs
+                let lastItem = currentRoute[currentRoute.length - 1]
+                lastItem.name = form
+                EventBus.$emit('route', this.$router.currentRoute.meta.breadcrumbs)
             }
         }
     }

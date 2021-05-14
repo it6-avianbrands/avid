@@ -1845,6 +1845,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -1864,22 +1865,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    crumbs: {
-      type: Array,
-      "default": []
-    }
+  mounted: function mounted() {
+    var _this = this;
+
+    _bus__WEBPACK_IMPORTED_MODULE_0__.default.$on('route', function (route) {
+      _this.setBreadcrumb(route);
+    });
   },
   data: function data() {
-    return {};
+    return {
+      breadcrumb: null
+    };
   },
   methods: {
-    isLast: function isLast(index) {
-      return index === this.crumbs.length - 1;
+    hasLink: function hasLink(breadcrumb) {
+      return breadcrumb.link || '';
     },
-    selected: function selected(crumb) {
-      this.$emit("selected", crumb);
+    setBreadcrumb: function setBreadcrumb(breadcrumb) {
+      this.breadcrumb = breadcrumb;
+      console.log(this.breadcrumb);
     }
   }
 });
@@ -2043,8 +2049,8 @@ __webpack_require__.r(__webpack_exports__);
       this.value = value.id;
       this.valueInfo = value.name;
     },
-    handleSearch: function handleSearch(id) {
-      this.$refs[id].searchTerm = null;
+    handleSearch: function handleSearch(id, term) {
+      this.$refs[id].searchTerm = term === "?" ? null : term;
       this.$refs[id].searchByValue(this.modalQuery);
     },
     showModalClick: function showModalClick(id) {
@@ -2055,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
         this.modalQuery = "/" + ["search", this.id.replace("Kode", "Keterangan"), query].join("/");
       }
 
-      this.handleSearch(id);
+      this.handleSearch(id, query);
     },
     showModalKeyPress: function showModalKeyPress(modal, e) {
       if (e.target.value) {
@@ -2228,20 +2234,7 @@ __webpack_require__.r(__webpack_exports__);
     text: String
   },
   data: function data() {
-    return {
-      route: {
-        crumbs: [{
-          text: "Home",
-          link: {}
-        }, {
-          text: "Master Barang",
-          link: {}
-        }],
-        add: {
-          name: 'BarangForm'
-        }
-      }
-    };
+    return {};
   }
 });
 
@@ -2258,6 +2251,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -2387,6 +2384,9 @@ __webpack_require__.r(__webpack_exports__);
     setFilter: function setFilter(name) {
       this.filter = name;
     },
+    resetFilter: function resetFilter() {
+      this.filter = this.getRowName(this.listData[0]);
+    },
     getRowID: function getRowID(data) {
       return Object.keys(data)[0];
     },
@@ -2424,19 +2424,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["id", "url"],
+  props: ["id", "url", "caption", "color", "icon"],
   data: function data() {
     return {
       route: {
-        edit: {
-          name: this.url,
-          params: {
-            id: this.id
-          }
+        name: this.url,
+        params: {
+          id: this.id
         }
       }
     };
+  },
+  methods: {
+    getRequestURL: function getRequestURL() {
+      return "/api" + this.$router.currentRoute.path + ["/delete", this.id].join("/");
+    },
+    handleDelete: function handleDelete() {
+      var _this = this;
+
+      var flag = confirm([this.caption, "data", this.id, "?"].join(" "));
+
+      if (flag) {
+        axios["delete"](this.getRequestURL()).then(function (response) {
+          console.log(response);
+
+          if (response.data.status) {
+            alert("Delete Success");
+            console.log(response.data.message);
+
+            _this.$router.go();
+          }
+        });
+      }
+    }
   }
 });
 
@@ -2578,6 +2606,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     image: String,
@@ -2585,6 +2614,49 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Dashboard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Dashboard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus */ "./resources/js/bus/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    this.getCurrentRoute();
+  },
+  methods: {
+    getCurrentRoute: function getCurrentRoute() {
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
+    }
   }
 });
 
@@ -2601,6 +2673,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -2634,13 +2707,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id'],
   data: function data() {
     return {
       route: {
         master: {
-          name: 'BarangList'
+          name: 'BarangList',
+          caption: "Back",
+          color: 'btn btn-secondary',
+          icon: 'fas fa-chevron-left',
+          alt: 'fas fa-times'
+        },
+        save: {
+          caption: 'Save',
+          color: 'btn btn-success float-right',
+          icon: 'fas fa-save'
+        },
+        "delete": {
+          caption: 'Delete',
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       formHTML: [[{
@@ -2845,9 +2954,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var form = [this.id ? "Edit" : "Add", "Barang"].join(" ");
+
     if (this.id) {
       this.getDataBarang(this.id);
     }
+
+    this.getCurrentRoute(form);
   },
   methods: {
     getDataBarang: function getDataBarang(id) {
@@ -2897,6 +3010,26 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    handleDelete: function handleDelete() {
+      var _this3 = this;
+
+      var flag = confirm(["Delete data", this.id, "?"].join(" "));
+
+      if (flag) {
+        axios["delete"]('/api/barang/delete/' + this.id).then(function (response) {
+          console.log(response);
+
+          if (response.data.status) {
+            alert("Delete Success");
+            console.log(response.data.message); //openMaster("BarangList")
+
+            _this3.$router.push({
+              name: "BarangList"
+            });
+          }
+        });
+      }
+    },
     openMaster: function openMaster(route) {
       this.$router.push({
         name: route
@@ -2904,6 +3037,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getCurrentRoute: function getCurrentRoute(form) {
+      var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
+      var lastItem = currentRoute[currentRoute.length - 1];
+      lastItem.name = form;
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -2921,6 +3060,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -2954,13 +3094,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id'],
   data: function data() {
     return {
       route: {
         master: {
-          name: 'JenisList'
+          name: 'JenisList',
+          caption: "Back",
+          color: 'btn btn-secondary',
+          icon: 'fas fa-chevron-left',
+          alt: 'fas fa-times'
+        },
+        save: {
+          caption: 'Save',
+          color: 'btn btn-success float-right',
+          icon: 'fas fa-save'
+        },
+        "delete": {
+          caption: 'Delete',
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       formHTML: [[{
@@ -2983,9 +3159,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var form = [this.id ? "Edit" : "Add", "Jenis"].join(" ");
+
     if (this.id) {
       this.getDataJenis(this.id);
     }
+
+    this.getCurrentRoute(form);
   },
   methods: {
     getDataJenis: function getDataJenis(id) {
@@ -3035,6 +3215,26 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    handleDelete: function handleDelete() {
+      var _this3 = this;
+
+      var flag = confirm(["Delete data", this.id, "?"].join(" "));
+
+      if (flag) {
+        axios["delete"]('/api/jenis/delete/' + this.id).then(function (response) {
+          console.log(response);
+
+          if (response.data.status) {
+            alert("Delete Success");
+            console.log(response.data.message); //openMaster("BarangList")
+
+            _this3.$router.push({
+              name: "JenisList"
+            });
+          }
+        });
+      }
+    },
     openMaster: function openMaster(route) {
       this.$router.push({
         name: route
@@ -3042,6 +3242,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getCurrentRoute: function getCurrentRoute(form) {
+      var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
+      var lastItem = currentRoute[currentRoute.length - 1];
+      lastItem.name = form;
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3059,6 +3265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3092,13 +3299,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id'],
   data: function data() {
     return {
       route: {
         master: {
-          name: 'MerkList'
+          name: 'MerkList',
+          caption: "Back",
+          color: 'btn btn-secondary',
+          icon: 'fas fa-chevron-left',
+          alt: 'fas fa-times'
+        },
+        save: {
+          caption: 'Save',
+          color: 'btn btn-success float-right',
+          icon: 'fas fa-save'
+        },
+        "delete": {
+          caption: 'Delete',
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       formHTML: [[{
@@ -3121,9 +3364,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var form = [this.id ? "Edit" : "Add", "Merk"].join(" ");
+
     if (this.id) {
       this.getDataMerk(this.id);
     }
+
+    this.getCurrentRoute(form);
   },
   methods: {
     getDataMerk: function getDataMerk(id) {
@@ -3173,6 +3420,26 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    handleDelete: function handleDelete() {
+      var _this3 = this;
+
+      var flag = confirm(["Delete data", this.id, "?"].join(" "));
+
+      if (flag) {
+        axios["delete"]('/api/merk/delete/' + this.id).then(function (response) {
+          console.log(response);
+
+          if (response.data.status) {
+            alert("Delete Success");
+            console.log(response.data.message); //openMaster("BarangList")
+
+            _this3.$router.push({
+              name: "MerkList"
+            });
+          }
+        });
+      }
+    },
     openMaster: function openMaster(route) {
       this.$router.push({
         name: route
@@ -3180,6 +3447,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getCurrentRoute: function getCurrentRoute(form) {
+      var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
+      var lastItem = currentRoute[currentRoute.length - 1];
+      lastItem.name = form;
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3197,6 +3470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3230,13 +3504,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id'],
   data: function data() {
     return {
       route: {
         master: {
-          name: 'ProdukList'
+          name: 'ProdukList',
+          caption: "Back",
+          color: 'btn btn-secondary',
+          icon: 'fas fa-chevron-left',
+          alt: 'fas fa-times'
+        },
+        save: {
+          caption: 'Save',
+          color: 'btn btn-success float-right',
+          icon: 'fas fa-save'
+        },
+        "delete": {
+          caption: 'Delete',
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       formHTML: [[{
@@ -3266,9 +3576,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var form = [this.id ? "Edit" : "Add", "Produk"].join(" ");
+
     if (this.id) {
       this.getDataProduk(this.id);
     }
+
+    this.getCurrentRoute(form);
   },
   methods: {
     getDataProduk: function getDataProduk(id) {
@@ -3318,6 +3632,26 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    handleDelete: function handleDelete() {
+      var _this3 = this;
+
+      var flag = confirm(["Delete data", this.id, "?"].join(" "));
+
+      if (flag) {
+        axios["delete"]('/api/produk/delete/' + this.id).then(function (response) {
+          console.log(response);
+
+          if (response.data.status) {
+            alert("Delete Success");
+            console.log(response.data.message); //openMaster("BarangList")
+
+            _this3.$router.push({
+              name: "ProdukList"
+            });
+          }
+        });
+      }
+    },
     openMaster: function openMaster(route) {
       this.$router.push({
         name: route
@@ -3325,6 +3659,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getCurrentRoute: function getCurrentRoute(form) {
+      var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
+      var lastItem = currentRoute[currentRoute.length - 1];
+      lastItem.name = form;
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3342,6 +3682,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3375,13 +3716,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id'],
   data: function data() {
     return {
       route: {
         master: {
-          name: 'UkuranList'
+          name: 'UkuranList',
+          caption: "Back",
+          color: 'btn btn-secondary',
+          icon: 'fas fa-chevron-left',
+          alt: 'fas fa-times'
+        },
+        save: {
+          caption: 'Save',
+          color: 'btn btn-success float-right',
+          icon: 'fas fa-save'
+        },
+        "delete": {
+          caption: 'Delete',
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       formHTML: [[{
@@ -3404,9 +3781,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var form = [this.id ? "Edit" : "Add", "Ukuran"].join(" ");
+
     if (this.id) {
       this.getDataUkuran(this.id);
     }
+
+    this.getCurrentRoute(form);
   },
   methods: {
     getDataUkuran: function getDataUkuran(id) {
@@ -3456,6 +3837,26 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    handleDelete: function handleDelete() {
+      var _this3 = this;
+
+      var flag = confirm(["Delete data", this.id, "?"].join(" "));
+
+      if (flag) {
+        axios["delete"]('/api/ukuran/delete/' + this.id).then(function (response) {
+          console.log(response);
+
+          if (response.data.status) {
+            alert("Delete Success");
+            console.log(response.data.message); //openMaster("BarangList")
+
+            _this3.$router.push({
+              name: "UkuranList"
+            });
+          }
+        });
+      }
+    },
     openMaster: function openMaster(route) {
       this.$router.push({
         name: route
@@ -3463,6 +3864,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getCurrentRoute: function getCurrentRoute(form) {
+      var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
+      var lastItem = currentRoute[currentRoute.length - 1];
+      lastItem.name = form;
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3480,6 +3887,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3529,15 +3937,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       route: {
         add: {
-          name: 'BarangForm'
+          name: 'BarangForm',
+          caption: "Add",
+          color: 'btn btn-success',
+          icon: 'fas fa-plus'
         },
         edit: {
-          name: 'BarangForm'
+          name: 'BarangForm',
+          caption: "Edit",
+          color: 'btn btn-primary',
+          icon: 'fas fa-edit'
+        },
+        "delete": {
+          caption: "Delete",
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       header: [{
@@ -3583,6 +4007,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.getCurrentRoute();
     this.getListBarang();
   },
   methods: {
@@ -3594,8 +4019,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.detail = response.data;
       });
     },
-    selected: function selected(crumb) {
-      console.log(crumb);
+    getCurrentRoute: function getCurrentRoute() {
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3613,6 +4038,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3638,15 +4064,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       route: {
         add: {
-          name: 'JenisForm'
+          name: 'JenisForm',
+          caption: "Add",
+          color: 'btn btn-success',
+          icon: 'fas fa-plus'
         },
         edit: {
-          name: 'JenisForm'
+          name: 'JenisForm',
+          caption: "Edit",
+          color: 'btn btn-primary',
+          icon: 'fas fa-edit'
+        },
+        "delete": {
+          caption: "Delete",
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       header: [{
@@ -3662,6 +4104,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.getCurrentRoute();
     this.getListJenis();
   },
   methods: {
@@ -3673,8 +4116,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.detail = response.data;
       });
     },
-    selected: function selected(crumb) {
-      console.log(crumb);
+    getCurrentRoute: function getCurrentRoute() {
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3692,6 +4135,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3717,15 +4161,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       route: {
         add: {
-          name: 'MerkForm'
+          name: 'MerkForm',
+          caption: "Add",
+          color: 'btn btn-success',
+          icon: 'fas fa-plus'
         },
         edit: {
-          name: 'MerkForm'
+          name: 'MerkForm',
+          caption: "Edit",
+          color: 'btn btn-primary',
+          icon: 'fas fa-edit'
+        },
+        "delete": {
+          caption: "Delete",
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       header: [{
@@ -3741,6 +4201,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.getCurrentRoute();
     this.getListMerk();
   },
   methods: {
@@ -3752,8 +4213,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.detail = response.data;
       });
     },
-    selected: function selected(crumb) {
-      console.log(crumb);
+    getCurrentRoute: function getCurrentRoute() {
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3771,6 +4232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3797,15 +4259,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       route: {
         add: {
-          name: 'ProdukForm'
+          name: 'ProdukForm',
+          caption: "Add",
+          color: 'btn btn-success',
+          icon: 'fas fa-plus'
         },
         edit: {
-          name: 'ProdukForm'
+          name: 'ProdukForm',
+          caption: "Edit",
+          color: 'btn btn-primary',
+          icon: 'fas fa-edit'
+        },
+        "delete": {
+          caption: "Delete",
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       header: [{
@@ -3824,6 +4302,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.getCurrentRoute();
     this.getListProduk();
   },
   methods: {
@@ -3835,8 +4314,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.detail = response.data;
       });
     },
-    selected: function selected(crumb) {
-      console.log(crumb);
+    getCurrentRoute: function getCurrentRoute() {
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3854,6 +4333,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../bus */ "./resources/js/bus/index.js");
 //
 //
 //
@@ -3879,15 +4359,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       route: {
         add: {
-          name: 'UkuranForm'
+          name: 'UkuranForm',
+          caption: "Add",
+          color: 'btn btn-success',
+          icon: 'fas fa-plus'
         },
         edit: {
-          name: 'UkuranForm'
+          name: 'UkuranForm',
+          caption: "Edit",
+          color: 'btn btn-primary',
+          icon: 'fas fa-edit'
+        },
+        "delete": {
+          caption: "Delete",
+          color: 'btn btn-danger',
+          icon: 'fas fa-trash'
         }
       },
       header: [{
@@ -3903,6 +4399,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.getCurrentRoute();
     this.getListUkuran();
   },
   methods: {
@@ -3914,8 +4411,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.detail = response.data;
       });
     },
-    selected: function selected(crumb) {
-      console.log(crumb);
+    getCurrentRoute: function getCurrentRoute() {
+      _bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('route', this.$router.currentRoute.meta.breadcrumbs);
     }
   }
 });
@@ -3976,6 +4473,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.component('form-help', __webpack_requir
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('form-check', __webpack_require__(/*! ./components/FormCheck.vue */ "./resources/js/components/FormCheck.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('list-control', __webpack_require__(/*! ./components/ListControl.vue */ "./resources/js/components/ListControl.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('breadcrumbs', __webpack_require__(/*! ./components/Breadcrumbs.vue */ "./resources/js/components/Breadcrumbs.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.component('dashboard', __webpack_require__(/*! ./pages/Dashboard.vue */ "./resources/js/pages/Dashboard.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('barang-list', __webpack_require__(/*! ./pages/master/list/BarangList.vue */ "./resources/js/pages/master/list/BarangList.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('barang-form', __webpack_require__(/*! ./pages/master/form/BarangForm.vue */ "./resources/js/pages/master/form/BarangForm.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_2__.default.component('produk-list', __webpack_require__(/*! ./pages/master/list/ProdukList.vue */ "./resources/js/pages/master/list/ProdukList.vue").default);
@@ -4036,6 +4534,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/bus/index.js":
+/*!***********************************!*\
+  !*** ./resources/js/bus/index.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue__WEBPACK_IMPORTED_MODULE_0__.default());
+
+/***/ }),
+
 /***/ "./resources/js/router/index.js":
 /*!**************************************!*\
   !*** ./resources/js/router/index.js ***!
@@ -4049,16 +4564,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _pages_master_list_BarangList_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/master/list/BarangList.vue */ "./resources/js/pages/master/list/BarangList.vue");
-/* harmony import */ var _pages_master_form_BarangForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pages/master/form/BarangForm.vue */ "./resources/js/pages/master/form/BarangForm.vue");
-/* harmony import */ var _pages_master_list_ProdukList_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pages/master/list/ProdukList.vue */ "./resources/js/pages/master/list/ProdukList.vue");
-/* harmony import */ var _pages_master_form_ProdukForm_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/master/form/ProdukForm.vue */ "./resources/js/pages/master/form/ProdukForm.vue");
-/* harmony import */ var _pages_master_list_MerkList_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pages/master/list/MerkList.vue */ "./resources/js/pages/master/list/MerkList.vue");
-/* harmony import */ var _pages_master_form_MerkForm_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pages/master/form/MerkForm.vue */ "./resources/js/pages/master/form/MerkForm.vue");
-/* harmony import */ var _pages_master_list_JenisList_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/master/list/JenisList.vue */ "./resources/js/pages/master/list/JenisList.vue");
-/* harmony import */ var _pages_master_form_JenisForm_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/master/form/JenisForm.vue */ "./resources/js/pages/master/form/JenisForm.vue");
-/* harmony import */ var _pages_master_list_UkuranList_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/master/list/UkuranList.vue */ "./resources/js/pages/master/list/UkuranList.vue");
-/* harmony import */ var _pages_master_form_UkuranForm_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/master/form/UkuranForm.vue */ "./resources/js/pages/master/form/UkuranForm.vue");
+/* harmony import */ var _pages_Dashboard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/Dashboard.vue */ "./resources/js/pages/Dashboard.vue");
+/* harmony import */ var _pages_master_list_BarangList_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pages/master/list/BarangList.vue */ "./resources/js/pages/master/list/BarangList.vue");
+/* harmony import */ var _pages_master_form_BarangForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pages/master/form/BarangForm.vue */ "./resources/js/pages/master/form/BarangForm.vue");
+/* harmony import */ var _pages_master_list_ProdukList_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/master/list/ProdukList.vue */ "./resources/js/pages/master/list/ProdukList.vue");
+/* harmony import */ var _pages_master_form_ProdukForm_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pages/master/form/ProdukForm.vue */ "./resources/js/pages/master/form/ProdukForm.vue");
+/* harmony import */ var _pages_master_list_MerkList_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pages/master/list/MerkList.vue */ "./resources/js/pages/master/list/MerkList.vue");
+/* harmony import */ var _pages_master_form_MerkForm_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/master/form/MerkForm.vue */ "./resources/js/pages/master/form/MerkForm.vue");
+/* harmony import */ var _pages_master_list_JenisList_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/master/list/JenisList.vue */ "./resources/js/pages/master/list/JenisList.vue");
+/* harmony import */ var _pages_master_form_JenisForm_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/master/form/JenisForm.vue */ "./resources/js/pages/master/form/JenisForm.vue");
+/* harmony import */ var _pages_master_list_UkuranList_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/master/list/UkuranList.vue */ "./resources/js/pages/master/list/UkuranList.vue");
+/* harmony import */ var _pages_master_form_UkuranForm_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../pages/master/form/UkuranForm.vue */ "./resources/js/pages/master/form/UkuranForm.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
@@ -4072,51 +4588,156 @@ vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 
 
 
+
 var routes = [{
+  name: 'Dashboard',
+  path: '/',
+  component: _pages_Dashboard_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+  meta: {
+    breadcrumbs: [{
+      name: "Home"
+    }]
+  }
+}, {
   name: 'BarangList',
   path: '/barang',
-  component: _pages_master_list_BarangList_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  component: _pages_master_list_BarangList_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Barang"
+    }]
+  }
 }, {
   name: 'BarangForm',
   path: '/barang/form/:id?',
-  component: _pages_master_form_BarangForm_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-  props: true
+  component: _pages_master_form_BarangForm_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+  props: true,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Barang",
+      link: "/barang"
+    }, {
+      name: "Form Barang"
+    }]
+  }
 }, {
   name: 'ProdukList',
   path: '/produk',
-  component: _pages_master_list_ProdukList_vue__WEBPACK_IMPORTED_MODULE_4__.default
+  component: _pages_master_list_ProdukList_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Produk"
+    }]
+  }
 }, {
   name: 'ProdukForm',
   path: '/produk/form/:id?',
-  component: _pages_master_form_ProdukForm_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-  props: true
+  component: _pages_master_form_ProdukForm_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+  props: true,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Produk",
+      link: "/produk"
+    }, {
+      name: "Form Produk"
+    }]
+  }
 }, {
   name: 'MerkList',
   path: '/merk',
-  component: _pages_master_list_MerkList_vue__WEBPACK_IMPORTED_MODULE_6__.default
+  component: _pages_master_list_MerkList_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Merk"
+    }]
+  }
 }, {
   name: 'MerkForm',
   path: '/merk/form/:id?',
-  component: _pages_master_form_MerkForm_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-  props: true
+  component: _pages_master_form_MerkForm_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+  props: true,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Merk",
+      link: "/merk"
+    }, {
+      name: "Form Merk"
+    }]
+  }
 }, {
   name: 'JenisList',
   path: '/jenis',
-  component: _pages_master_list_JenisList_vue__WEBPACK_IMPORTED_MODULE_8__.default
+  component: _pages_master_list_JenisList_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Jenis"
+    }]
+  }
 }, {
   name: 'JenisForm',
   path: '/jenis/form/:id?',
-  component: _pages_master_form_JenisForm_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-  props: true
+  component: _pages_master_form_JenisForm_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+  props: true,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Jenis",
+      link: "/jenis"
+    }, {
+      name: "Form Jenis"
+    }]
+  }
 }, {
   name: 'UkuranList',
   path: '/ukuran',
-  component: _pages_master_list_UkuranList_vue__WEBPACK_IMPORTED_MODULE_10__.default
+  component: _pages_master_list_UkuranList_vue__WEBPACK_IMPORTED_MODULE_11__.default,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Ukuran"
+    }]
+  }
 }, {
   name: 'UkuranForm',
   path: '/ukuran/form/:id?',
-  component: _pages_master_form_UkuranForm_vue__WEBPACK_IMPORTED_MODULE_11__.default,
-  props: true
+  component: _pages_master_form_UkuranForm_vue__WEBPACK_IMPORTED_MODULE_12__.default,
+  props: true,
+  meta: {
+    breadcrumbs: [{
+      name: "Home",
+      link: "/"
+    }, {
+      name: "Master Ukuran",
+      link: "/ukuran"
+    }, {
+      name: "Form Ukuran"
+    }]
+  }
 }
 /*{
     path: '*',
@@ -22367,6 +22988,45 @@ component.options.__file = "resources/js/components/Sidebar.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/Dashboard.vue":
+/*!******************************************!*\
+  !*** ./resources/js/pages/Dashboard.vue ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Dashboard_vue_vue_type_template_id_82704d4a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Dashboard.vue?vue&type=template&id=82704d4a& */ "./resources/js/pages/Dashboard.vue?vue&type=template&id=82704d4a&");
+/* harmony import */ var _Dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Dashboard.vue?vue&type=script&lang=js& */ "./resources/js/pages/Dashboard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Dashboard_vue_vue_type_template_id_82704d4a___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Dashboard_vue_vue_type_template_id_82704d4a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/Dashboard.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/pages/master/form/BarangForm.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/pages/master/form/BarangForm.vue ***!
@@ -22901,6 +23561,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/Dashboard.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/pages/Dashboard.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Dashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Dashboard.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/pages/master/form/BarangForm.vue?vue&type=script&lang=js&":
 /*!********************************************************************************!*\
   !*** ./resources/js/pages/master/form/BarangForm.vue?vue&type=script&lang=js& ***!
@@ -23214,6 +23890,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/Dashboard.vue?vue&type=template&id=82704d4a&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/pages/Dashboard.vue?vue&type=template&id=82704d4a& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_template_id_82704d4a___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_template_id_82704d4a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_template_id_82704d4a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Dashboard.vue?vue&type=template&id=82704d4a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Dashboard.vue?vue&type=template&id=82704d4a&");
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/master/form/BarangForm.vue?vue&type=template&id=18b30f12&":
 /*!**************************************************************************************!*\
   !*** ./resources/js/pages/master/form/BarangForm.vue?vue&type=template&id=18b30f12& ***!
@@ -23438,7 +24131,7 @@ var render = function() {
     _c(
       "ol",
       { staticClass: "breadcrumb border-0 m-0" },
-      _vm._l(_vm.crumbs, function(crumb, index) {
+      _vm._l(_vm.breadcrumb, function(crumb, index) {
         return _c(
           "li",
           { key: index, staticClass: "breadcrumb-item" },
@@ -23446,15 +24139,10 @@ var render = function() {
             _c(
               "router-link",
               {
-                class: { disabled: _vm.isLast(index) },
-                attrs: { to: crumb.link, disabled: _vm.isLast(index) },
-                on: {
-                  selected: function($event) {
-                    return _vm.selected(crumb.link)
-                  }
-                }
+                class: { disabled: !crumb.link },
+                attrs: { to: _vm.hasLink(crumb), disabled: !crumb.link }
               },
-              [_vm._v(_vm._s(crumb.text))]
+              [_vm._v(_vm._s(crumb.name))]
             )
           ],
           1
@@ -23966,10 +24654,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("breadcrumbs", {
-        attrs: { crumbs: _vm.route.crumbs },
-        on: { selected: _vm.selected }
-      })
+      _c("breadcrumbs")
     ],
     1
   )
@@ -24088,7 +24773,19 @@ var render = function() {
                 domProps: { textContent: _vm._s(_vm.title) }
               }),
               _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    "aria-label": "Close"
+                  },
+                  on: { click: _vm.resetFilter }
+                },
+                [_vm._m(0)]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
@@ -24292,7 +24989,8 @@ var render = function() {
                 {
                   ref: _vm.modalID,
                   staticClass: "btn btn-secondary",
-                  attrs: { type: "button", "data-dismiss": "modal" }
+                  attrs: { type: "button", "data-dismiss": "modal" },
+                  on: { click: _vm.resetFilter }
                 },
                 [_vm._v("Close")]
               ),
@@ -24318,18 +25016,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
+    return _c("span", { attrs: { "aria-hidden": "true" } }, [
+      _c("small", [_c("i", { staticClass: "fas fa-times" })])
+    ])
   }
 ]
 render._withStripped = true
@@ -24354,11 +25043,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "router-link",
-    { staticClass: "btn btn-sm btn-primary", attrs: { to: _vm.route.edit } },
-    [_vm._v("Edit")]
-  )
+  return _vm.url
+    ? _c("router-link", { class: _vm.color, attrs: { to: _vm.route } }, [
+        _c("span", {
+          staticClass: "pr-1",
+          domProps: { textContent: _vm._s(_vm.caption) }
+        }),
+        _vm._v(" "),
+        _c("i", { class: _vm.icon })
+      ])
+    : _c(
+        "button",
+        {
+          class: _vm.color,
+          attrs: { type: "button" },
+          on: { click: _vm.handleDelete }
+        },
+        [
+          _c("span", {
+            staticClass: "pr-1",
+            domProps: { textContent: _vm._s(_vm.caption) }
+          }),
+          _vm._v(" "),
+          _c("i", { class: _vm.icon })
+        ]
+      )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -24405,27 +25114,28 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("ul", { staticClass: "c-sidebar-nav" }, [
-        _c("li", { staticClass: "c-sidebar-nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "c-sidebar-nav-link",
-              attrs: { href: "index.html" }
-            },
-            [
-              _c("svg", { staticClass: "c-sidebar-nav-icon" }, [
-                _c("use", {
-                  attrs: {
-                    "xlink:href":
-                      "vendors/@coreui/icons/svg/free.svg#cil-speedometer"
-                  }
-                })
-              ]),
-              _vm._v(" Dashboard"),
-              _c("span", { staticClass: "badge badge-info" }, [_vm._v("NEW")])
-            ]
-          )
-        ]),
+        _c(
+          "li",
+          { staticClass: "c-sidebar-nav-item" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "c-sidebar-nav-link", attrs: { to: "/" } },
+              [
+                _c("svg", { staticClass: "c-sidebar-nav-icon" }, [
+                  _c("use", {
+                    attrs: {
+                      "xlink:href":
+                        "vendors/@coreui/icons/svg/free.svg#cil-speedometer"
+                    }
+                  })
+                ]),
+                _vm._v(" Dashboard\n        ")
+              ]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("li", { staticClass: "c-sidebar-nav-title" }, [_vm._v("Theme")]),
         _vm._v(" "),
@@ -24475,24 +25185,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "c-sidebar-nav-item c-sidebar-nav-dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "c-sidebar-nav-link c-sidebar-nav-dropdown-toggle",
-              attrs: { href: "#" }
-            },
-            [
-              _c("svg", { staticClass: "c-sidebar-nav-icon" }, [
-                _c("use", {
-                  attrs: {
-                    "xlink:href":
-                      "vendors/@coreui/icons/svg/free.svg#cil-folder-open"
-                  }
-                })
-              ]),
-              _vm._v(" Master")
-            ]
-          ),
+          _vm._m(0),
           _vm._v(" "),
           _c("ul", { staticClass: "c-sidebar-nav-dropdown-items" }, [
             _c(
@@ -24587,8 +25280,6 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
             _vm._m(2),
@@ -24615,7 +25306,9 @@ var render = function() {
             _vm._v(" "),
             _vm._m(13),
             _vm._v(" "),
-            _vm._m(14)
+            _vm._m(14),
+            _vm._v(" "),
+            _vm._m(15)
           ])
         ]),
         _vm._v(" "),
@@ -24639,7 +25332,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(15)
+          _vm._m(16)
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "c-sidebar-nav-item" }, [
@@ -24682,7 +25375,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(16)
+          _vm._m(17)
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "c-sidebar-nav-item c-sidebar-nav-dropdown" }, [
@@ -24704,7 +25397,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(17)
+          _vm._m(18)
         ]),
         _vm._v(" "),
         _c("li", { staticClass: "c-sidebar-nav-item" }, [
@@ -24852,6 +25545,22 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "c-sidebar-nav-link c-sidebar-nav-dropdown-toggle",
+        attrs: { href: "#" }
+      },
+      [
+        _c("i", { staticClass: "fas fa-database c-sidebar-nav-icon" }),
+        _vm._v(" Master")
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -25239,6 +25948,52 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Dashboard.vue?vue&type=template&id=82704d4a&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Dashboard.vue?vue&type=template&id=82704d4a& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h1", [_vm._v("Dashboard")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n                Hello world\n            ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/master/form/BarangForm.vue?vue&type=template&id=18b30f12&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/master/form/BarangForm.vue?vue&type=template&id=18b30f12& ***!
@@ -25264,13 +26019,38 @@ var render = function() {
             attrs: {
               id: "BarangForm",
               action: "",
-              method: this.id ? "put" : "post",
+              method: _vm.id ? "put" : "post",
               enctype: "multipart/form-data"
             }
           },
           [
             _c("div", { staticClass: "card-header" }, [
-              _c("h1", [_vm._v(_vm._s(this.id ? "Edit" : "Add") + " Barang")])
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("h1", [
+                    _vm._v(_vm._s(_vm.id ? "Edit" : "Add") + " Barang")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col d-flex align-items-center justify-content-end"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "close text-dark",
+                        attrs: { to: _vm.route.master }
+                      },
+                      [_c("i", { class: _vm.route.master.alt })]
+                    )
+                  ],
+                  1
+                )
+              ])
             ]),
             _vm._v(" "),
             _vm._t("default"),
@@ -25278,101 +26058,141 @@ var render = function() {
             _c(
               "div",
               { staticClass: "card-body" },
+              _vm._l(_vm.formHTML, function(formRow) {
+                return _c(
+                  "div",
+                  { staticClass: "form-group row" },
+                  [
+                    _vm._l(formRow, function(form) {
+                      return [
+                        form.template == "regular"
+                          ? [
+                              _c("form-regular", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  type: form.type,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : form.template == "help"
+                          ? [
+                              _c("form-help", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : [
+                              _c("form-check", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  value: _vm.formData[form.name]
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                      ]
+                    })
+                  ],
+                  2
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
               [
                 _c(
                   "router-link",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    class: _vm.route.master.color,
                     attrs: { to: _vm.route.master }
                   },
-                  [_vm._v("Back")]
+                  [
+                    _c("i", { class: _vm.route.master.icon }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: {
+                        textContent: _vm._s(_vm.route.master.caption)
+                      }
+                    })
+                  ]
                 ),
                 _vm._v(" "),
-                _vm._l(_vm.formHTML, function(formRow) {
-                  return _c(
-                    "div",
-                    { staticClass: "form-group row" },
-                    [
-                      _vm._l(formRow, function(form) {
-                        return [
-                          form.template == "regular"
-                            ? [
-                                _c("form-regular", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    type: form.type,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : form.template == "help"
-                            ? [
-                                _c("form-help", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : [
-                                _c("form-check", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    value: _vm.formData[form.name]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleSubmit($event)
+                _vm.id
+                  ? _c(
+                      "button",
+                      {
+                        class: _vm.route.delete.color,
+                        attrs: { type: "button" },
+                        on: { click: _vm.handleDelete }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "pr-1",
+                          domProps: {
+                            textContent: _vm._s(_vm.route.delete.caption)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("i", { class: _vm.route.delete.icon })
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    class: _vm.route.save.color,
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.handleSubmit($event)
+                      }
                     }
-                  }
-                },
-                [_vm._v(" Submit")]
-              )
-            ])
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.save.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.save.icon })
+                  ]
+                )
+              ],
+              1
+            )
           ],
           2
         )
@@ -25412,13 +26232,36 @@ var render = function() {
             attrs: {
               id: "JenisForm",
               action: "",
-              method: this.id ? "put" : "post",
+              method: _vm.id ? "put" : "post",
               enctype: "multipart/form-data"
             }
           },
           [
             _c("div", { staticClass: "card-header" }, [
-              _c("h1", [_vm._v(_vm._s(this.id ? "Edit" : "Add") + " Jenis")])
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("h1", [_vm._v(_vm._s(_vm.id ? "Edit" : "Add") + " Jenis")])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col d-flex align-items-center justify-content-end"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "close text-dark",
+                        attrs: { to: _vm.route.master }
+                      },
+                      [_c("i", { class: _vm.route.master.alt })]
+                    )
+                  ],
+                  1
+                )
+              ])
             ]),
             _vm._v(" "),
             _vm._t("default"),
@@ -25426,101 +26269,141 @@ var render = function() {
             _c(
               "div",
               { staticClass: "card-body" },
+              _vm._l(_vm.formHTML, function(formRow) {
+                return _c(
+                  "div",
+                  { staticClass: "form-group row" },
+                  [
+                    _vm._l(formRow, function(form) {
+                      return [
+                        form.template == "regular"
+                          ? [
+                              _c("form-regular", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  type: form.type,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : form.template == "help"
+                          ? [
+                              _c("form-help", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : [
+                              _c("form-check", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  value: _vm.formData[form.name]
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                      ]
+                    })
+                  ],
+                  2
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
               [
                 _c(
                   "router-link",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    class: _vm.route.master.color,
                     attrs: { to: _vm.route.master }
                   },
-                  [_vm._v("Back")]
+                  [
+                    _c("i", { class: _vm.route.master.icon }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: {
+                        textContent: _vm._s(_vm.route.master.caption)
+                      }
+                    })
+                  ]
                 ),
                 _vm._v(" "),
-                _vm._l(_vm.formHTML, function(formRow) {
-                  return _c(
-                    "div",
-                    { staticClass: "form-group row" },
-                    [
-                      _vm._l(formRow, function(form) {
-                        return [
-                          form.template == "regular"
-                            ? [
-                                _c("form-regular", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    type: form.type,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : form.template == "help"
-                            ? [
-                                _c("form-help", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : [
-                                _c("form-check", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    value: _vm.formData[form.name]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleSubmit($event)
+                _vm.id
+                  ? _c(
+                      "button",
+                      {
+                        class: _vm.route.delete.color,
+                        attrs: { type: "button" },
+                        on: { click: _vm.handleDelete }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "pr-1",
+                          domProps: {
+                            textContent: _vm._s(_vm.route.delete.caption)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("i", { class: _vm.route.delete.icon })
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    class: _vm.route.save.color,
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.handleSubmit($event)
+                      }
                     }
-                  }
-                },
-                [_vm._v(" Submit")]
-              )
-            ])
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.save.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.save.icon })
+                  ]
+                )
+              ],
+              1
+            )
           ],
           2
         )
@@ -25560,13 +26443,36 @@ var render = function() {
             attrs: {
               id: "MerkForm",
               action: "",
-              method: this.id ? "put" : "post",
+              method: _vm.id ? "put" : "post",
               enctype: "multipart/form-data"
             }
           },
           [
             _c("div", { staticClass: "card-header" }, [
-              _c("h1", [_vm._v(_vm._s(this.id ? "Edit" : "Add") + " Merk")])
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("h1", [_vm._v(_vm._s(_vm.id ? "Edit" : "Add") + " Merk")])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col d-flex align-items-center justify-content-end"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "close text-dark",
+                        attrs: { to: _vm.route.master }
+                      },
+                      [_c("i", { class: _vm.route.master.alt })]
+                    )
+                  ],
+                  1
+                )
+              ])
             ]),
             _vm._v(" "),
             _vm._t("default"),
@@ -25574,101 +26480,141 @@ var render = function() {
             _c(
               "div",
               { staticClass: "card-body" },
+              _vm._l(_vm.formHTML, function(formRow) {
+                return _c(
+                  "div",
+                  { staticClass: "form-group row" },
+                  [
+                    _vm._l(formRow, function(form) {
+                      return [
+                        form.template == "regular"
+                          ? [
+                              _c("form-regular", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  type: form.type,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : form.template == "help"
+                          ? [
+                              _c("form-help", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : [
+                              _c("form-check", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  value: _vm.formData[form.name]
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                      ]
+                    })
+                  ],
+                  2
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
               [
                 _c(
                   "router-link",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    class: _vm.route.master.color,
                     attrs: { to: _vm.route.master }
                   },
-                  [_vm._v("Back")]
+                  [
+                    _c("i", { class: _vm.route.master.icon }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: {
+                        textContent: _vm._s(_vm.route.master.caption)
+                      }
+                    })
+                  ]
                 ),
                 _vm._v(" "),
-                _vm._l(_vm.formHTML, function(formRow) {
-                  return _c(
-                    "div",
-                    { staticClass: "form-group row" },
-                    [
-                      _vm._l(formRow, function(form) {
-                        return [
-                          form.template == "regular"
-                            ? [
-                                _c("form-regular", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    type: form.type,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : form.template == "help"
-                            ? [
-                                _c("form-help", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : [
-                                _c("form-check", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    value: _vm.formData[form.name]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleSubmit($event)
+                _vm.id
+                  ? _c(
+                      "button",
+                      {
+                        class: _vm.route.delete.color,
+                        attrs: { type: "button" },
+                        on: { click: _vm.handleDelete }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "pr-1",
+                          domProps: {
+                            textContent: _vm._s(_vm.route.delete.caption)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("i", { class: _vm.route.delete.icon })
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    class: _vm.route.save.color,
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.handleSubmit($event)
+                      }
                     }
-                  }
-                },
-                [_vm._v(" Submit")]
-              )
-            ])
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.save.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.save.icon })
+                  ]
+                )
+              ],
+              1
+            )
           ],
           2
         )
@@ -25708,13 +26654,38 @@ var render = function() {
             attrs: {
               id: "ProdukForm",
               action: "",
-              method: this.id ? "put" : "post",
+              method: _vm.id ? "put" : "post",
               enctype: "multipart/form-data"
             }
           },
           [
             _c("div", { staticClass: "card-header" }, [
-              _c("h1", [_vm._v(_vm._s(this.id ? "Edit" : "Add") + " Produk")])
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("h1", [
+                    _vm._v(_vm._s(_vm.id ? "Edit" : "Add") + " Produk")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col d-flex align-items-center justify-content-end"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "close text-dark",
+                        attrs: { to: _vm.route.master }
+                      },
+                      [_c("i", { class: _vm.route.master.alt })]
+                    )
+                  ],
+                  1
+                )
+              ])
             ]),
             _vm._v(" "),
             _vm._t("default"),
@@ -25722,101 +26693,141 @@ var render = function() {
             _c(
               "div",
               { staticClass: "card-body" },
+              _vm._l(_vm.formHTML, function(formRow) {
+                return _c(
+                  "div",
+                  { staticClass: "form-group row" },
+                  [
+                    _vm._l(formRow, function(form) {
+                      return [
+                        form.template == "regular"
+                          ? [
+                              _c("form-regular", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  type: form.type,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : form.template == "help"
+                          ? [
+                              _c("form-help", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : [
+                              _c("form-check", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  value: _vm.formData[form.name]
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                      ]
+                    })
+                  ],
+                  2
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
               [
                 _c(
                   "router-link",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    class: _vm.route.master.color,
                     attrs: { to: _vm.route.master }
                   },
-                  [_vm._v("Back")]
+                  [
+                    _c("i", { class: _vm.route.master.icon }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: {
+                        textContent: _vm._s(_vm.route.master.caption)
+                      }
+                    })
+                  ]
                 ),
                 _vm._v(" "),
-                _vm._l(_vm.formHTML, function(formRow) {
-                  return _c(
-                    "div",
-                    { staticClass: "form-group row" },
-                    [
-                      _vm._l(formRow, function(form) {
-                        return [
-                          form.template == "regular"
-                            ? [
-                                _c("form-regular", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    type: form.type,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : form.template == "help"
-                            ? [
-                                _c("form-help", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : [
-                                _c("form-check", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    value: _vm.formData[form.name]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleSubmit($event)
+                _vm.id
+                  ? _c(
+                      "button",
+                      {
+                        class: _vm.route.delete.color,
+                        attrs: { type: "button" },
+                        on: { click: _vm.handleDelete }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "pr-1",
+                          domProps: {
+                            textContent: _vm._s(_vm.route.delete.caption)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("i", { class: _vm.route.delete.icon })
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    class: _vm.route.save.color,
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.handleSubmit($event)
+                      }
                     }
-                  }
-                },
-                [_vm._v(" Submit")]
-              )
-            ])
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.save.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.save.icon })
+                  ]
+                )
+              ],
+              1
+            )
           ],
           2
         )
@@ -25856,13 +26867,38 @@ var render = function() {
             attrs: {
               id: "UkuranForm",
               action: "",
-              method: this.id ? "put" : "post",
+              method: _vm.id ? "put" : "post",
               enctype: "multipart/form-data"
             }
           },
           [
             _c("div", { staticClass: "card-header" }, [
-              _c("h1", [_vm._v(_vm._s(this.id ? "Edit" : "Add") + " Ukuran")])
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("h1", [
+                    _vm._v(_vm._s(_vm.id ? "Edit" : "Add") + " Ukuran")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col d-flex align-items-center justify-content-end"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "close text-dark",
+                        attrs: { to: _vm.route.master }
+                      },
+                      [_c("i", { class: _vm.route.master.alt })]
+                    )
+                  ],
+                  1
+                )
+              ])
             ]),
             _vm._v(" "),
             _vm._t("default"),
@@ -25870,101 +26906,141 @@ var render = function() {
             _c(
               "div",
               { staticClass: "card-body" },
+              _vm._l(_vm.formHTML, function(formRow) {
+                return _c(
+                  "div",
+                  { staticClass: "form-group row" },
+                  [
+                    _vm._l(formRow, function(form) {
+                      return [
+                        form.template == "regular"
+                          ? [
+                              _c("form-regular", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  type: form.type,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : form.template == "help"
+                          ? [
+                              _c("form-help", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  required: form.required,
+                                  value: _vm.formData[form.name],
+                                  disabled: form.primary && _vm.id
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                          : [
+                              _c("form-check", {
+                                attrs: {
+                                  size: form.size,
+                                  id: form.name,
+                                  label: form.label,
+                                  value: _vm.formData[form.name]
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.setValue(form.name, $event)
+                                  }
+                                }
+                              })
+                            ]
+                      ]
+                    })
+                  ],
+                  2
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-footer" },
               [
                 _c(
                   "router-link",
                   {
-                    staticClass: "btn btn-sm btn-primary",
+                    class: _vm.route.master.color,
                     attrs: { to: _vm.route.master }
                   },
-                  [_vm._v("Back")]
+                  [
+                    _c("i", { class: _vm.route.master.icon }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: {
+                        textContent: _vm._s(_vm.route.master.caption)
+                      }
+                    })
+                  ]
                 ),
                 _vm._v(" "),
-                _vm._l(_vm.formHTML, function(formRow) {
-                  return _c(
-                    "div",
-                    { staticClass: "form-group row" },
-                    [
-                      _vm._l(formRow, function(form) {
-                        return [
-                          form.template == "regular"
-                            ? [
-                                _c("form-regular", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    type: form.type,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : form.template == "help"
-                            ? [
-                                _c("form-help", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    required: form.required,
-                                    value: _vm.formData[form.name],
-                                    disabled: form.primary && _vm.id
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                            : [
-                                _c("form-check", {
-                                  attrs: {
-                                    size: form.size,
-                                    id: form.name,
-                                    label: form.label,
-                                    value: _vm.formData[form.name]
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.setValue(form.name, $event)
-                                    }
-                                  }
-                                })
-                              ]
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleSubmit($event)
+                _vm.id
+                  ? _c(
+                      "button",
+                      {
+                        class: _vm.route.delete.color,
+                        attrs: { type: "button" },
+                        on: { click: _vm.handleDelete }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "pr-1",
+                          domProps: {
+                            textContent: _vm._s(_vm.route.delete.caption)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("i", { class: _vm.route.delete.icon })
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    class: _vm.route.save.color,
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.handleSubmit($event)
+                      }
                     }
-                  }
-                },
-                [_vm._v(" Submit")]
-              )
-            ])
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.save.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.save.icon })
+                  ]
+                )
+              ],
+              1
+            )
           ],
           2
         )
@@ -26007,10 +27083,22 @@ var render = function() {
             _c(
               "router-link",
               {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { to: _vm.route.add }
+                staticClass: "mb-3",
+                class: _vm.route.add.color,
+                attrs: { to: _vm.route.add, tag: "button" }
               },
-              [_vm._v("Add")]
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "pr-1",
+                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                  },
+                  [_vm._v("Add")]
+                ),
+                _vm._v(" "),
+                _c("i", { class: _vm.route.add.icon })
+              ]
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -26089,7 +27177,19 @@ var render = function() {
                             _c("list-control", {
                               attrs: {
                                 id: row.KodeBarang,
-                                url: _vm.route.edit.name
+                                url: _vm.route.edit.name,
+                                caption: _vm.route.edit.caption,
+                                color: _vm.route.edit.color,
+                                icon: _vm.route.edit.icon
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("list-control", {
+                              attrs: {
+                                id: row.KodeBarang,
+                                caption: _vm.route.delete.caption,
+                                color: _vm.route.delete.color,
+                                icon: _vm.route.delete.icon
                               }
                             })
                           ],
@@ -26154,10 +27254,22 @@ var render = function() {
             _c(
               "router-link",
               {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { to: _vm.route.add }
+                staticClass: "mb-3",
+                class: _vm.route.add.color,
+                attrs: { to: _vm.route.add, tag: "button" }
               },
-              [_vm._v("Add")]
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "pr-1",
+                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                  },
+                  [_vm._v("Add")]
+                ),
+                _vm._v(" "),
+                _c("i", { class: _vm.route.add.icon })
+              ]
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -26180,7 +27292,19 @@ var render = function() {
                             _c("list-control", {
                               attrs: {
                                 id: row.KodeJenis,
-                                url: _vm.route.edit.name
+                                url: _vm.route.edit.name,
+                                caption: _vm.route.edit.caption,
+                                color: _vm.route.edit.color,
+                                icon: _vm.route.edit.icon
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("list-control", {
+                              attrs: {
+                                id: row.KodeJenis,
+                                caption: _vm.route.delete.caption,
+                                color: _vm.route.delete.color,
+                                icon: _vm.route.delete.icon
                               }
                             })
                           ],
@@ -26245,10 +27369,22 @@ var render = function() {
             _c(
               "router-link",
               {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { to: _vm.route.add }
+                staticClass: "mb-3",
+                class: _vm.route.add.color,
+                attrs: { to: _vm.route.add, tag: "button" }
               },
-              [_vm._v("Add")]
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "pr-1",
+                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                  },
+                  [_vm._v("Add")]
+                ),
+                _vm._v(" "),
+                _c("i", { class: _vm.route.add.icon })
+              ]
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -26271,7 +27407,19 @@ var render = function() {
                             _c("list-control", {
                               attrs: {
                                 id: row.KodeMerk,
-                                url: _vm.route.edit.name
+                                url: _vm.route.edit.name,
+                                caption: _vm.route.edit.caption,
+                                color: _vm.route.edit.color,
+                                icon: _vm.route.edit.icon
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("list-control", {
+                              attrs: {
+                                id: row.KodeMerk,
+                                caption: _vm.route.delete.caption,
+                                color: _vm.route.delete.color,
+                                icon: _vm.route.delete.icon
                               }
                             })
                           ],
@@ -26336,10 +27484,22 @@ var render = function() {
             _c(
               "router-link",
               {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { to: _vm.route.add }
+                staticClass: "mb-3",
+                class: _vm.route.add.color,
+                attrs: { to: _vm.route.add, tag: "button" }
               },
-              [_vm._v("Add")]
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "pr-1",
+                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                  },
+                  [_vm._v("Add")]
+                ),
+                _vm._v(" "),
+                _c("i", { class: _vm.route.add.icon })
+              ]
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -26364,7 +27524,19 @@ var render = function() {
                             _c("list-control", {
                               attrs: {
                                 id: row.KodeProduk,
-                                url: _vm.route.edit.name
+                                url: _vm.route.edit.name,
+                                caption: _vm.route.edit.caption,
+                                color: _vm.route.edit.color,
+                                icon: _vm.route.edit.icon
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("list-control", {
+                              attrs: {
+                                id: row.KodeProduk,
+                                caption: _vm.route.delete.caption,
+                                color: _vm.route.delete.color,
+                                icon: _vm.route.delete.icon
                               }
                             })
                           ],
@@ -26429,10 +27601,22 @@ var render = function() {
             _c(
               "router-link",
               {
-                staticClass: "btn btn-sm btn-primary",
-                attrs: { to: _vm.route.add }
+                staticClass: "mb-3",
+                class: _vm.route.add.color,
+                attrs: { to: _vm.route.add, tag: "button" }
               },
-              [_vm._v("Add")]
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "pr-1",
+                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                  },
+                  [_vm._v("Add")]
+                ),
+                _vm._v(" "),
+                _c("i", { class: _vm.route.add.icon })
+              ]
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -26455,7 +27639,19 @@ var render = function() {
                             _c("list-control", {
                               attrs: {
                                 id: row.KodeUkuran,
-                                url: _vm.route.edit.name
+                                url: _vm.route.edit.name,
+                                caption: _vm.route.edit.caption,
+                                color: _vm.route.edit.color,
+                                icon: _vm.route.edit.icon
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("list-control", {
+                              attrs: {
+                                id: row.KodeUkuran,
+                                caption: _vm.route.delete.caption,
+                                color: _vm.route.delete.color,
+                                icon: _vm.route.delete.icon
                               }
                             })
                           ],

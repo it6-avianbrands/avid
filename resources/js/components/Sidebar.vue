@@ -13,10 +13,13 @@
         </span>
         </div>
         <ul class="c-sidebar-nav">
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="index.html">
-            <svg class="c-sidebar-nav-icon">
-                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> Dashboard<span class="badge badge-info">NEW</span></a></li>
+        <li class="c-sidebar-nav-item">
+            <router-link to="/" class="c-sidebar-nav-link">
+                <svg class="c-sidebar-nav-icon">
+                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+                </svg> Dashboard
+            </router-link>
+        </li>
         <li class="c-sidebar-nav-title">Theme</li>
         <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="colors.html">
             <svg class="c-sidebar-nav-icon">
@@ -28,9 +31,7 @@
             </svg> Typography</a></li>
         <li class="c-sidebar-nav-title">Components</li>
         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-            <svg class="c-sidebar-nav-icon">
-                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-folder-open"></use>
-            </svg> Master</a>
+            <i class="fas fa-database c-sidebar-nav-icon"></i> Master</a>
             <ul class="c-sidebar-nav-dropdown-items">
             <li class="c-sidebar-nav-item"><router-link to="/barang" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Barang</router-link></li>
             <li class="c-sidebar-nav-item"><router-link to="/produk" class="c-sidebar-nav-link"><span class="c-sidebar-nav-icon"></span> Produk</router-link></li>
