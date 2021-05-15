@@ -28,11 +28,15 @@ class ProdukController extends Controller
 
     public function addProduk(Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
+        $rules = [
             "KodeProduk" => "required|unique:Produk",
             "KeteranganProduk" => "required",
             "InisialProduk" => "required|unique:Produk"
-        ]);
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($request->all(), $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -40,7 +44,7 @@ class ProdukController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
         $produk = Produk::create($request->all());
 
@@ -53,11 +57,15 @@ class ProdukController extends Controller
 
     public function editProduk($id, Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
-            "KodeProduk" => "required|unique:Produk",
-            "KeteranganProduk" => "required",
-            "InisialProduk" => "required|unique:Produk"
-        ]);
+        $requests = $request->except(["KodeProduk"]);
+
+        $rules = [
+            "KeteranganProduk" => "required"
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($requests, $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -65,9 +73,9 @@ class ProdukController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
-        Produk::find($id)->update($request->all());
+        Produk::find($id)->update($requests);
 
         return response()->json([
             "status" => true,

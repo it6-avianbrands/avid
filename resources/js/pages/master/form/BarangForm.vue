@@ -21,10 +21,10 @@
                         <div v-for="formRow in formHTML" class="form-group row">
                             <template v-for="form in formRow">
                                 <template v-if="form.template == 'regular'">
-                                    <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" :disabled="form.primary && id" @input="setValue(form.name, $event)"></form-regular>
+                                    <form-regular :size="form.size" :id="form.name" :type="form.type" :label="form.label" :required="form.required" :value="formData[form.name]" :disabled="(form.primary || form.unique) && id" @input="setValue(form.name, $event)" :error="getError(form.name)"></form-regular>
                                 </template>
                                 <template v-else-if="form.template == 'help'">
-                                    <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" :disabled="form.primary && id" @input="setValue(form.name, $event)"></form-help>
+                                    <form-help :size="form.size" :id="form.name" :label="form.label" :required="form.required" :value="formData[form.name]" :disabled="(form.primary || form.unique) && id" @input="setValue(form.name, $event)" :error="getError(form.name)"></form-help>
                                 </template>
                                 <template v-else>
                                     <form-check :size="form.size" :id="form.name" :label="form.label" :value="formData[form.name]" @input="setValue(form.name, $event)"></form-check>
@@ -178,7 +178,7 @@
                             type: "text",
                             name: "KodeSatuan",
                             label: "Satuan",
-                            required: "required",
+                            required: "",
                             size: 3
                         },
                         {
@@ -325,7 +325,8 @@
                         }
                     ]
                 ],
-                formData: {}
+                formData: {},
+                formErrors: {}
             }
         },
         mounted() {
@@ -361,8 +362,16 @@
                         }
                     })
                     .catch((error) => {
-                        alert(error.response.data.message)
-                        console.log(error.response.data.message)
+                        if (error.response.status == 422)
+                        {
+                            console.log(error.response.data)
+                            this.formErrors = error.response.data.message
+                        }
+                        else
+                        {
+                            alert(error.response.data.message)
+                            console.log(error.response.data.message)
+                        }
                     })
                 }
                 else
@@ -381,8 +390,16 @@
                         }
                     })
                     .catch((error) => {
-                        alert(error.response.data.message)
-                        console.log(error.response.data.message)
+                        if (error.response.status == 422)
+                        {
+                            console.log(error.response.data)
+                            this.formErrors = error.response.data.message
+                        }
+                        else
+                        {
+                            alert(error.response.data.message)
+                            console.log(error.response.data.message)
+                        }
                     })
                 }
             },
@@ -411,6 +428,10 @@
             },
             setValue(key, e) {
                 this.formData[key] = e
+            },
+            getError(name) {
+                let error = this.formErrors[name]
+                return error ? error[0] : null
             },
             getCurrentRoute(form) {
                 let currentRoute = this.$router.currentRoute.meta.breadcrumbs

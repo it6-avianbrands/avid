@@ -30,10 +30,14 @@ class MJUController extends Controller
 
     public function addMerk(Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
+        $rules = [
             "KodeMerk" => "required|unique:Merk",
             "KeteranganMerk" => "required",
-        ]);
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($request->all(), $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -41,7 +45,7 @@ class MJUController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
         $merk = Merk::create($request->all());
 
@@ -54,10 +58,15 @@ class MJUController extends Controller
 
     public function editMerk($id, Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
-            "KodeMerk" => "required|unique:Merk",
-            "KeteranganMerk" => "required",
-        ]);
+        $requests = $request->except(["KodeMerk"]);
+
+        $rules = [
+            "KeteranganMerk" => "required"
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($requests, $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -65,9 +74,9 @@ class MJUController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
-        Merk::find($id)->update($request->all());
+        Merk::find($id)->update($requests);
 
         return response()->json([
             "status" => true,
@@ -107,10 +116,14 @@ class MJUController extends Controller
 
     public function addJenis(Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
+        $rules = [
             "KodeJenis" => "required|unique:Jenis",
             "KeteranganJenis" => "required",
-        ]);
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($request->all(), $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -118,7 +131,7 @@ class MJUController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
         $jenis = Jenis::create($request->all());
 
@@ -131,10 +144,15 @@ class MJUController extends Controller
 
     public function editJenis($id, Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
-            "KodeJenis" => "required|unique:Jenis",
-            "KeteranganJenis" => "required",
-        ]);
+        $requests = $request->except(["KodeJenis"]);
+
+        $rules = [
+            "KeteranganJenis" => "required"
+        ];
+        
+        $messages = validation_rules();
+
+        $validation = Validator::make($requests, $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -142,9 +160,9 @@ class MJUController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
-        Jenis::find($id)->update($request->all());
+        Jenis::find($id)->update($requests);
 
         return response()->json([
             "status" => true,
@@ -184,10 +202,14 @@ class MJUController extends Controller
 
     public function addUkuran(Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
+        $rules = [
             "KodeUkuran" => "required|unique:Ukuran",
             "KeteranganUkuran" => "required",
-        ]);
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($request->all(), $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -195,7 +217,7 @@ class MJUController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
         $ukuran = Ukuran::create($request->all());
 
@@ -208,10 +230,15 @@ class MJUController extends Controller
 
     public function editUkuran($id, Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
-            "KodeUkuran" => "required|unique:Ukuran",
-            "KeteranganUkuran" => "required",
-        ]);
+        $requests = $request->except(["KodeUkuran"]);
+
+        $rules = [
+            "KeteranganUkuran" => "required"
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($requests, $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -219,9 +246,9 @@ class MJUController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
-        Ukuran::find($id)->update($request->all());
+        Ukuran::find($id)->update($requests);
 
         return response()->json([
             "status" => true,

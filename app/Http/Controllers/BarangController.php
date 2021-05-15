@@ -28,7 +28,9 @@ class BarangController extends Controller
 
     public function addBarang(Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
+        $requests = $request->except(["KodeSatuan", "QtySatuan", "BeratSatuan", "QtyColi"]);
+
+        $rules = [
             "KodeBarang" => "required|unique:Barang",
             "KodeProduk" => "required|exists:Produk",
             "NamaBarang" => "required",
@@ -37,7 +39,7 @@ class BarangController extends Controller
             "KodeJenis" => "required|exists:Jenis",
             "KodeUkuran" => "required|exists:Ukuran",
             "KodeModelSatuan" => "required|exists:ModelSatuan",
-            "KodeSatuan" => "required|exists:Satuan",
+            //"KodeSatuan" => "required|exists:Satuan",
             "SatuanColi" => "required|exists:Satuan,KodeSatuan",
             "DiscGroupBarang" => "required|exists:DiscGroup,KodeDiscGroup",
             "ProdukGroup" => "required|exists:ProdukGroup,KodeProdukGroup",
@@ -50,7 +52,11 @@ class BarangController extends Controller
             "GroupC" => "required",
             "GroupD" => "required",
             "GroupDX" => "required"
-        ]);
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($requests, $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -58,9 +64,9 @@ class BarangController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
-        $barang = Barang::create($request->except(["KodeSatuan", "QtySatuan", "BeratSatuan", "QtyColi"]));
+        $barang = Barang::create($requests);
 
         return response()->json([
             "status" => true,
@@ -71,7 +77,9 @@ class BarangController extends Controller
 
     public function editBarang($id, Request $request)
     {
-        /*$validation = Validator::make($request->all(), [
+        $requests = $request->except(["KodeBarang", "KodeSatuan", "QtySatuan", "BeratSatuan", "QtyColi"]);
+
+        $rules = [
             "KodeProduk" => "required|exists:Produk",
             "NamaBarang" => "required",
             "KodeWarna" => "required|exists:Warna",
@@ -79,7 +87,7 @@ class BarangController extends Controller
             "KodeJenis" => "required|exists:Jenis",
             "KodeUkuran" => "required|exists:Ukuran",
             "KodeModelSatuan" => "required|exists:ModelSatuan",
-            "KodeSatuan" => "required|exists:Satuan",
+            //"KodeSatuan" => "required|exists:Satuan",
             "SatuanColi" => "required|exists:Satuan,KodeSatuan",
             "DiscGroupBarang" => "required|exists:DiscGroup,KodeDiscGroup",
             "ProdukGroup" => "required|exists:ProdukGroup,KodeProdukGroup",
@@ -92,7 +100,11 @@ class BarangController extends Controller
             "GroupC" => "required",
             "GroupD" => "required",
             "GroupDX" => "required"
-        ]);
+        ];
+
+        $messages = validation_rules();
+
+        $validation = Validator::make($requests, $rules, $messages);
 
         if ($validation->fails()) 
         {
@@ -100,9 +112,9 @@ class BarangController extends Controller
                 "status" => false,
                 "message" => $validation->errors()
             ], 422);
-        }*/
+        }
 
-        Barang::find($id)->update($request->except(["KodeBarang", "KodeSatuan", "QtySatuan", "BeratSatuan", "QtyColi"]));
+        Barang::find($id)->update($requests);
 
         return response()->json([
             "status" => true,

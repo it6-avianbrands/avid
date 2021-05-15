@@ -2009,6 +2009,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -2016,6 +2021,7 @@ __webpack_require__.r(__webpack_exports__);
     label: String,
     required: String,
     value: String,
+    error: String,
     disabled: {
       type: Boolean,
       "default": false
@@ -2101,6 +2107,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: String,
@@ -2108,6 +2119,7 @@ __webpack_require__.r(__webpack_exports__);
     label: String,
     required: String,
     value: String,
+    error: String,
     disabled: {
       type: Boolean,
       "default": false
@@ -2828,7 +2840,7 @@ __webpack_require__.r(__webpack_exports__);
         type: "text",
         name: "KodeSatuan",
         label: "Satuan",
-        required: "required",
+        required: "",
         size: 3
       }, {
         template: "regular",
@@ -2950,7 +2962,8 @@ __webpack_require__.r(__webpack_exports__);
         required: "",
         size: 6
       }]],
-      formData: {}
+      formData: {},
+      formErrors: {}
     };
   },
   mounted: function mounted() {
@@ -2989,8 +3002,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       } else {
         axios.post('/api/barang/add', this.$data.formData).then(function (response) {
@@ -3005,8 +3023,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       }
     },
@@ -3037,6 +3060,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getError: function getError(name) {
+      var error = this.formErrors[name];
+      return error ? error[0] : null;
     },
     getCurrentRoute: function getCurrentRoute(form) {
       var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
@@ -3155,7 +3182,8 @@ __webpack_require__.r(__webpack_exports__);
         required: "required",
         size: 12
       }]],
-      formData: {}
+      formData: {},
+      formErrors: {}
     };
   },
   mounted: function mounted() {
@@ -3194,8 +3222,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       } else {
         axios.post('/api/jenis/add', this.$data.formData).then(function (response) {
@@ -3210,8 +3243,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       }
     },
@@ -3242,6 +3280,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getError: function getError(name) {
+      var error = this.formErrors[name];
+      return error ? error[0] : null;
     },
     getCurrentRoute: function getCurrentRoute(form) {
       var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
@@ -3360,7 +3402,8 @@ __webpack_require__.r(__webpack_exports__);
         required: "required",
         size: 12
       }]],
-      formData: {}
+      formData: {},
+      formErrors: {}
     };
   },
   mounted: function mounted() {
@@ -3399,8 +3442,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       } else {
         axios.post('/api/merk/add', this.$data.formData).then(function (response) {
@@ -3415,8 +3463,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       }
     },
@@ -3447,6 +3500,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getError: function getError(name) {
+      var error = this.formErrors[name];
+      return error ? error[0] : null;
     },
     getCurrentRoute: function getCurrentRoute(form) {
       var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
@@ -3558,6 +3615,7 @@ __webpack_require__.r(__webpack_exports__);
         required: "required",
         size: 6
       }, {
+        unique: true,
         template: "regular",
         type: "text",
         name: "InisialProduk",
@@ -3572,7 +3630,8 @@ __webpack_require__.r(__webpack_exports__);
         required: "required",
         size: 12
       }]],
-      formData: {}
+      formData: {},
+      formErrors: {}
     };
   },
   mounted: function mounted() {
@@ -3611,8 +3670,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       } else {
         axios.post('/api/produk/add', this.$data.formData).then(function (response) {
@@ -3627,8 +3691,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       }
     },
@@ -3659,6 +3728,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getError: function getError(name) {
+      var error = this.formErrors[name];
+      return error ? error[0] : null;
     },
     getCurrentRoute: function getCurrentRoute(form) {
       var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
@@ -3777,7 +3850,8 @@ __webpack_require__.r(__webpack_exports__);
         required: "required",
         size: 12
       }]],
-      formData: {}
+      formData: {},
+      formErrors: {}
     };
   },
   mounted: function mounted() {
@@ -3816,8 +3890,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       } else {
         axios.post('/api/ukuran/add', this.$data.formData).then(function (response) {
@@ -3832,8 +3911,13 @@ __webpack_require__.r(__webpack_exports__);
             });
           }
         })["catch"](function (error) {
-          alert(error.response.data.message);
-          console.log(error.response.data.message);
+          if (error.response.status == 422) {
+            console.log(error.response.data);
+            _this2.formErrors = error.response.data.message;
+          } else {
+            alert(error.response.data.message);
+            console.log(error.response.data.message);
+          }
         });
       }
     },
@@ -3864,6 +3948,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     setValue: function setValue(key, e) {
       this.formData[key] = e;
+    },
+    getError: function getError(name) {
+      var error = this.formErrors[name];
+      return error ? error[0] : null;
     },
     getCurrentRoute: function getCurrentRoute(form) {
       var currentRoute = this.$router.currentRoute.meta.breadcrumbs;
@@ -24342,6 +24430,15 @@ var render = function() {
             domProps: { textContent: _vm._s(_vm.valueInfo) }
           })
         ])
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "help-block required" }, [
+        _vm.error
+          ? _c("small", [
+              _c("i", { staticClass: "fas fa-exclamation-circle pr-1" }),
+              _vm._v(_vm._s(_vm.error) + "\n        ")
+            ])
+          : _vm._e()
       ])
     ],
     1
@@ -24382,7 +24479,16 @@ var render = function() {
       attrs: { id: _vm.id, type: _vm.type, disabled: _vm.disabled },
       domProps: { value: _vm.value },
       on: { input: _vm.handleInput }
-    })
+    }),
+    _vm._v(" "),
+    _c("span", { staticClass: "help-block required" }, [
+      _vm.error
+        ? _c("small", [
+            _c("i", { staticClass: "fas fa-exclamation-circle pr-1" }),
+            _vm._v(_vm._s(_vm.error) + "\n        ")
+          ])
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -26075,7 +26181,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26093,7 +26201,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26286,7 +26396,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26304,7 +26416,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26497,7 +26611,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26515,7 +26631,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26710,7 +26828,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26728,7 +26848,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26923,7 +27045,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {
@@ -26941,7 +27065,9 @@ var render = function() {
                                   label: form.label,
                                   required: form.required,
                                   value: _vm.formData[form.name],
-                                  disabled: form.primary && _vm.id
+                                  disabled:
+                                    (form.primary || form.unique) && _vm.id,
+                                  error: _vm.getError(form.name)
                                 },
                                 on: {
                                   input: function($event) {

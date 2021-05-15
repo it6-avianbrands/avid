@@ -15,6 +15,11 @@
                 <span v-text="valueInfo" class="input-group-text col-12"></span>
             </span>
         </div>
+        <span class="help-block required">
+            <small v-if="error">
+                <i class="fas fa-exclamation-circle pr-1"></i>{{ error }}
+            </small>
+        </span>
     </div>
 </template>
 
@@ -31,6 +36,7 @@
             label: String,
             required: String,
             value: String,
+            error: String,
             disabled: {
                 type: Boolean,
                 default: false

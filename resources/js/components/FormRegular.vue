@@ -1,7 +1,12 @@
 <template>
     <div :class="columnClass">
         <label v-text="label" :class="[labelClass, isRequired]" :for="id"></label>
-        <input class="form-control" :id="id" :type="type" :value="value" :disabled="disabled" @input="handleInput"> 
+        <input class="form-control" :id="id" :type="type" :value="value" :disabled="disabled" @input="handleInput">
+        <span class="help-block required">
+            <small v-if="error">
+                <i class="fas fa-exclamation-circle pr-1"></i>{{ error }}
+            </small>
+        </span>
     </div>
 </template>
 
@@ -17,6 +22,7 @@
             label: String,
             required: String,
             value: String,
+            error: String,
             disabled: {
                 type: Boolean,
                 default: false
