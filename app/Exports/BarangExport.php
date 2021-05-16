@@ -3,15 +3,29 @@
 namespace App\Exports;
 
 use App\Models\Barang;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class BarangExport implements FromCollection
+class BarangExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function view(): View
     {
-        return Barang::all();
+        $barang = Barang::select(
+            "KodeBarang",
+            "KodeProduk",
+            "NamaBarang",
+            "KodeMerk",
+            "KodeJenis",
+            "KodeUkuran",
+            "KodeModelSatuan",
+            "SatuanColi",
+            "DiscGroupBarang",
+            "ProdukGroup"
+        )->get();
+
+        return view("excel.master.barang", [
+            "header" => array_keys($barang->first()->getAttributes()),
+            "data" => $barang
+        ]);
     }
 }

@@ -3,15 +3,21 @@
 namespace App\Exports;
 
 use App\Models\Ukuran;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class UkuranExport implements FromCollection
+class UkuranExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function view(): View
     {
-        return Ukuran::all();
+        $ukuran = Ukuran::select(
+            "KodeUkuran",
+            "KeteranganUkuran"
+        )->get();
+
+        return view("excel.master.ukuran", [
+            "header" => array_keys($ukuran->first()->getAttributes()),
+            "data" => $ukuran
+        ]);
     }
 }

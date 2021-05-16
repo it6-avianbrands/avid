@@ -11250,7 +11250,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-show.c-sidebar-right, html:not([dir="
 @media (hover: hover), (-ms-high-contrast: none) {
   .c-sidebar .c-sidebar-nav-link:hover, .c-sidebar .c-sidebar-nav-dropdown-toggle:hover {
     color: #fff;
-    background: #321fdb;
+    background: #2eb85c;
   }
   .c-sidebar .c-sidebar-nav-link:hover .c-sidebar-nav-icon, .c-sidebar .c-sidebar-nav-dropdown-toggle:hover .c-sidebar-nav-icon {
     color: #fff;
@@ -11351,7 +11351,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-show.c-sidebar-right, html:not([dir="
 }
 
 .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-link, .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-dropdown-toggle {
-  background: #321fdb;
+  background: #2eb85c;
 }
 
 .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-link .c-sidebar-nav-icon, .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
@@ -11359,7 +11359,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-show.c-sidebar-right, html:not([dir="
 }
 
 .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-link.c-disabled, .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-disabled.c-sidebar-nav-dropdown-toggle {
-  background: #3c4b64;
+  background: #004230;
 }
 
 .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-link.c-disabled .c-sidebar-nav-icon, .c-sidebar.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-disabled.c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
@@ -11367,15 +11367,15 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-show.c-sidebar-right, html:not([dir="
 }
 
 .c-sidebar.c-sidebar-minimized .c-sidebar-nav > .c-sidebar-nav-dropdown > .c-sidebar-nav-dropdown-items {
-  background: #3c4b64;
+  background: #004230;
 }
 
 .c-sidebar.c-sidebar-minimized .c-sidebar-nav > .c-sidebar-nav-dropdown:hover {
-  background: #321fdb;
+  background: #2eb85c;
 }
 
 .c-sidebar.c-sidebar-light {
-  color: #3c4b64;
+  color: #004230;
   background: #fff;
   border-right: 1px solid rgba(159, 167, 179, 0.5);
 }
@@ -11396,7 +11396,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-light.c-sidebar-right,*[dir="rtl"] .c
 
 .c-sidebar.c-sidebar-light .c-sidebar-brand {
   color: #fff;
-  background: #321fdb;
+  background: #2eb85c;
 }
 
 .c-sidebar.c-sidebar-light .c-sidebar-header {
@@ -11448,7 +11448,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-light.c-sidebar-right,*[dir="rtl"] .c
 }
 
 .c-sidebar.c-sidebar-light .c-sidebar-nav-link.c-active .c-sidebar-nav-icon, .c-sidebar.c-sidebar-light .c-active.c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
-  color: #321fdb;
+  color: #2eb85c;
 }
 
 .c-sidebar.c-sidebar-light .c-sidebar-nav-link:focus, .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown-toggle:focus {
@@ -11458,7 +11458,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-light.c-sidebar-right,*[dir="rtl"] .c
 @media (hover: hover), (-ms-high-contrast: none) {
   .c-sidebar.c-sidebar-light .c-sidebar-nav-link:hover, .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown-toggle:hover {
     color: #fff;
-    background: #321fdb;
+    background: #2eb85c;
   }
   .c-sidebar.c-sidebar-light .c-sidebar-nav-link:hover .c-sidebar-nav-icon, .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown-toggle:hover .c-sidebar-nav-icon {
     color: #fff;
@@ -11555,7 +11555,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-light.c-sidebar-right,*[dir="rtl"] .c
 }
 
 .c-sidebar.c-sidebar-light.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-link, .c-sidebar.c-sidebar-light.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-dropdown-toggle {
-  background: #321fdb;
+  background: #2eb85c;
 }
 
 .c-sidebar.c-sidebar-light.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-link .c-sidebar-nav-icon, .c-sidebar.c-sidebar-light.c-sidebar-minimized .c-sidebar-nav-item:hover > .c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {
@@ -11575,7 +11575,7 @@ html:not([dir="rtl"]) .c-sidebar.c-sidebar-light.c-sidebar-right,*[dir="rtl"] .c
 }
 
 .c-sidebar.c-sidebar-light.c-sidebar-minimized .c-sidebar-nav > .c-sidebar-nav-dropdown:hover,.c-sidebar .c-sidebar-nav-link.c-sidebar-nav-link-primary, .c-sidebar .c-sidebar-nav-link-primary.c-sidebar-nav-dropdown-toggle {
-  background: #321fdb;
+  background: #2eb85c;
 }
 
 .c-sidebar .c-sidebar-nav-link.c-sidebar-nav-link-primary .c-sidebar-nav-icon, .c-sidebar .c-sidebar-nav-link-primary.c-sidebar-nav-dropdown-toggle .c-sidebar-nav-icon {

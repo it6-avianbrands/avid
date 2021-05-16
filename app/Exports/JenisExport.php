@@ -3,15 +3,21 @@
 namespace App\Exports;
 
 use App\Models\Jenis;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class JenisExport implements FromCollection
+class JenisExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function view(): View
     {
-        return Jenis::all();
+        $jenis = Jenis::select(
+            "KodeJenis",
+            "KeteranganJenis"
+        )->get();
+
+        return view("excel.master.jenis", [
+            "header" => array_keys($jenis->first()->getAttributes()),
+            "data" => $jenis
+        ]);
     }
 }
