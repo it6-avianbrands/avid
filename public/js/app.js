@@ -4029,6 +4029,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4050,6 +4056,12 @@ __webpack_require__.r(__webpack_exports__);
           caption: "Delete",
           color: 'btn btn-danger',
           icon: 'fas fa-trash'
+        },
+        excel: {
+          name: '/excel/barang',
+          caption: "Export Excel",
+          color: 'btn btn-dark',
+          icon: 'fas fa-file-excel'
         }
       },
       header: [{
@@ -4156,6 +4168,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4177,6 +4195,12 @@ __webpack_require__.r(__webpack_exports__);
           caption: "Delete",
           color: 'btn btn-danger',
           icon: 'fas fa-trash'
+        },
+        excel: {
+          name: '/excel/jenis',
+          caption: "Export Excel",
+          color: 'btn btn-dark',
+          icon: 'fas fa-file-excel'
         }
       },
       header: [{
@@ -4253,6 +4277,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4274,6 +4304,12 @@ __webpack_require__.r(__webpack_exports__);
           caption: "Delete",
           color: 'btn btn-danger',
           icon: 'fas fa-trash'
+        },
+        excel: {
+          name: '/excel/merk',
+          caption: "Export Excel",
+          color: 'btn btn-dark',
+          icon: 'fas fa-file-excel'
         }
       },
       header: [{
@@ -4351,6 +4387,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4372,6 +4414,12 @@ __webpack_require__.r(__webpack_exports__);
           caption: "Delete",
           color: 'btn btn-danger',
           icon: 'fas fa-trash'
+        },
+        excel: {
+          name: '/excel/produk',
+          caption: "Export Excel",
+          color: 'btn btn-dark',
+          icon: 'fas fa-file-excel'
         }
       },
       header: [{
@@ -4451,6 +4499,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4472,6 +4526,12 @@ __webpack_require__.r(__webpack_exports__);
           caption: "Delete",
           color: 'btn btn-danger',
           icon: 'fas fa-trash'
+        },
+        excel: {
+          name: '/excel/ukuran',
+          caption: "Export Excel",
+          color: 'btn btn-dark',
+          icon: 'fas fa-file-excel'
         }
       },
       header: [{
@@ -27207,24 +27267,42 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c(
-              "router-link",
-              {
-                staticClass: "mb-3",
-                class: _vm.route.add.color,
-                attrs: { to: _vm.route.add, tag: "button" }
-              },
+              "section",
+              { staticClass: "mb-3" },
               [
                 _c(
-                  "span",
+                  "router-link",
                   {
-                    staticClass: "pr-1",
-                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    class: _vm.route.add.color,
+                    attrs: { to: _vm.route.add, tag: "button" }
                   },
-                  [_vm._v("Add")]
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.add.icon })
+                  ]
                 ),
                 _vm._v(" "),
-                _c("i", { class: _vm.route.add.icon })
-              ]
+                _c(
+                  "a",
+                  {
+                    class: _vm.route.excel.color,
+                    attrs: { href: _vm.route.excel.name }
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.excel.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.excel.icon })
+                  ]
+                )
+              ],
+              1
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -27378,24 +27456,42 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c(
-              "router-link",
-              {
-                staticClass: "mb-3",
-                class: _vm.route.add.color,
-                attrs: { to: _vm.route.add, tag: "button" }
-              },
+              "section",
+              { staticClass: "mb-3" },
               [
                 _c(
-                  "span",
+                  "router-link",
                   {
-                    staticClass: "pr-1",
-                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    class: _vm.route.add.color,
+                    attrs: { to: _vm.route.add, tag: "button" }
                   },
-                  [_vm._v("Add")]
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.add.icon })
+                  ]
                 ),
                 _vm._v(" "),
-                _c("i", { class: _vm.route.add.icon })
-              ]
+                _c(
+                  "a",
+                  {
+                    class: _vm.route.excel.color,
+                    attrs: { href: _vm.route.excel.name }
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.excel.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.excel.icon })
+                  ]
+                )
+              ],
+              1
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -27493,24 +27589,42 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c(
-              "router-link",
-              {
-                staticClass: "mb-3",
-                class: _vm.route.add.color,
-                attrs: { to: _vm.route.add, tag: "button" }
-              },
+              "section",
+              { staticClass: "mb-3" },
               [
                 _c(
-                  "span",
+                  "router-link",
                   {
-                    staticClass: "pr-1",
-                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    class: _vm.route.add.color,
+                    attrs: { to: _vm.route.add, tag: "button" }
                   },
-                  [_vm._v("Add")]
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.add.icon })
+                  ]
                 ),
                 _vm._v(" "),
-                _c("i", { class: _vm.route.add.icon })
-              ]
+                _c(
+                  "a",
+                  {
+                    class: _vm.route.excel.color,
+                    attrs: { href: _vm.route.excel.name }
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.excel.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.excel.icon })
+                  ]
+                )
+              ],
+              1
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -27608,24 +27722,42 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c(
-              "router-link",
-              {
-                staticClass: "mb-3",
-                class: _vm.route.add.color,
-                attrs: { to: _vm.route.add, tag: "button" }
-              },
+              "section",
+              { staticClass: "mb-3" },
               [
                 _c(
-                  "span",
+                  "router-link",
                   {
-                    staticClass: "pr-1",
-                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    class: _vm.route.add.color,
+                    attrs: { to: _vm.route.add, tag: "button" }
                   },
-                  [_vm._v("Add")]
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.add.icon })
+                  ]
                 ),
                 _vm._v(" "),
-                _c("i", { class: _vm.route.add.icon })
-              ]
+                _c(
+                  "a",
+                  {
+                    class: _vm.route.excel.color,
+                    attrs: { href: _vm.route.excel.name }
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.excel.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.excel.icon })
+                  ]
+                )
+              ],
+              1
             ),
             _vm._v(" "),
             _c("datatable", {
@@ -27725,24 +27857,42 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c(
-              "router-link",
-              {
-                staticClass: "mb-3",
-                class: _vm.route.add.color,
-                attrs: { to: _vm.route.add, tag: "button" }
-              },
+              "section",
+              { staticClass: "mb-3" },
               [
                 _c(
-                  "span",
+                  "router-link",
                   {
-                    staticClass: "pr-1",
-                    domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    class: _vm.route.add.color,
+                    attrs: { to: _vm.route.add, tag: "button" }
                   },
-                  [_vm._v("Add")]
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.add.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.add.icon })
+                  ]
                 ),
                 _vm._v(" "),
-                _c("i", { class: _vm.route.add.icon })
-              ]
+                _c(
+                  "a",
+                  {
+                    class: _vm.route.excel.color,
+                    attrs: { href: _vm.route.excel.name }
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "pr-1",
+                      domProps: { textContent: _vm._s(_vm.route.excel.caption) }
+                    }),
+                    _vm._v(" "),
+                    _c("i", { class: _vm.route.excel.icon })
+                  ]
+                )
+              ],
+              1
             ),
             _vm._v(" "),
             _c("datatable", {

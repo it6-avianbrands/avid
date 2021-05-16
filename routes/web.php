@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{any}', function () {
     return view('app');
-})->where('any', '.*');
+})->where('any', '^(?!excel).*$');
+
+Route::prefix('excel')->group(function () {
+    Route::get('/barang', [ReportController::class, 'exportBarang'])->name('report_barang');
+    Route::get('/produk', [ReportController::class, 'exportProduk'])->name('report_produk');
+    Route::get('/merk', [ReportController::class, 'exportMerk'])->name('report_merk');
+    Route::get('/jenis', [ReportController::class, 'exportJenis'])->name('report_jenis');
+    Route::get('/ukuran', [ReportController::class, 'exportUkuran'])->name('report_ukuran');
+});
 
 Route::name('auth.')->group(function () {
     Route::prefix('auth')->group(function () {

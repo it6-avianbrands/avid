@@ -4,10 +4,16 @@
             <div class="card">
                 <div class="card-header"><h1>Master Barang</h1></div>
                 <div class="card-body">
-                    <router-link :class="route.add.color" class="mb-3" :to="route.add" tag="button">
-                        <span v-text="route.add.caption" class="pr-1">Add</span>
-                        <i :class="route.add.icon"></i>
-                    </router-link>
+                    <section class="mb-3">
+                        <router-link :class="route.add.color" :to="route.add" tag="button">
+                            <span v-text="route.add.caption" class="pr-1"></span>
+                            <i :class="route.add.icon"></i>
+                        </router-link>
+                        <a :class="route.excel.color" :href="route.excel.name">
+                            <span v-text="route.excel.caption" class="pr-1"></span>
+                            <i :class="route.excel.icon"></i>
+                        </a>
+                    </section>
                     <datatable :columns="header" :data="detail">
                         <template slot-scope="{row, columns}">
                             <tr>
@@ -74,6 +80,12 @@
                         caption: "Delete",
                         color: 'btn btn-danger',
                         icon: 'fas fa-trash'
+                    },
+                    excel: {
+                        name: '/excel/barang',
+                        caption: "Export Excel",
+                        color: 'btn btn-dark',
+                        icon: 'fas fa-file-excel'
                     }
                 },
                 header: [
