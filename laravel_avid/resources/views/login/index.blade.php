@@ -1,6 +1,6 @@
 @extends('layouts.login')
 
-@section('title', 'AVID | LOGIN')
+@section('title', 'Login')
 
 @section('content')
 <div class="row w-100 mx-0">
@@ -29,4 +29,5 @@
             </form>
         </div>
     </div>
+</div>
 @endsection

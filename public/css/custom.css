@@ -1,0 +1,30 @@
+.hmenu{
+    padding: 10px 15px !important;
+}
+
+.submenu-item{
+    padding : 5px 10px !important;
+}
+
+@media (min-width: 768px){
+    .horizontal-menu .bottom-navbar .page-navigation > .nav-item:not(.mega-menu) .submenu {
+        top : 63px;
+    }
+}
+
+.breadcrumb {
+    padding : 0px 15px !important;
+    background-color : transparent;
+    font-size : 15px;
+    margin-bottom : 5px;
+}
+
+.title{
+    font-weight: bold;
+    color : #000;
+    margin-bottom: 5px;
+}
+
+.table td {
+    padding : 3px 10px;
+}

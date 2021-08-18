@@ -12,6 +12,10 @@ use App\Model\User;
 
 class LoginController extends Controller {
 	public function index(Request $request) {
+        $userinfo = session("userinfo");
+        if (isset($userinfo)){
+            return redirect()->route('dashboard');
+        }
 		return view ('login.index');
     }
 
@@ -20,9 +24,13 @@ class LoginController extends Controller {
         $password = $request->password;
 
         $errors = new MessageBag();
-
         if ((trim($username) == "admin") && (trim($password) == "admin")){
 
+            $userinfo['username'] = "admin";
+            $userinfo['level'] = "0";
+
+            session(['userinfo' => $userinfo]);
+            
             return redirect()->route('dashboard');
         } else {
             $errors = new MessageBag(['credential' => ['Username and / or Password invalid.']]);
@@ -40,7 +48,7 @@ class LoginController extends Controller {
 
 	public function logout(Request $request) {
         $request->session()->flush();
-        return redirect('/login');
+        return redirect()->route('login');
 	}
 
 }
